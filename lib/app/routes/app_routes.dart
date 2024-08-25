@@ -7,4 +7,6 @@ abstract class Routes {
   static const animeScreen = '/animeScreen';
   static const mangaScreen = '/mangaScreen';
   static const animeDetailsScreen = '/animeDetailsScreen';
+  static const videoPlayer = '/videoPlayer';
+  static const downloadAnime = '/downloadAnime';
 }

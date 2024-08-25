@@ -18,4 +18,6 @@ class AppApis {
   static const String mangaList = 'api/mangaList';
   // --> Anime Details Data API's
   static const String animeDetailsData = 'meta/anilist/info';
+  // --> Anime Streaming Data API's
+  static const String animeStream = 'meta/anilist/watch';
 }

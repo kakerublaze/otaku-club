@@ -6,6 +6,7 @@ import 'package:otakuclub/app/core/constants/app_images.dart';
 import 'package:otakuclub/app/core/utils/extensions.dart';
 import 'package:otakuclub/app/core/utils/helpers/image_helper.dart';
 import 'package:otakuclub/app/modules/anime_details_screen/anime_details_controller.dart';
+import 'package:otakuclub/app/routes/app_pages.dart';
 
 class AnimeDetailsPage extends StatelessWidget {
   const AnimeDetailsPage({super.key});
@@ -587,13 +588,18 @@ class AnimeDetailsPage extends StatelessWidget {
                                 ),
                                 child: Stack(
                                   children: [
-                                    ImageHelper(
-                                      imagePath: controller.animeDataModel.value
-                                              .episodes?[index].image ??
-                                          '',
-                                      height: 110,
-                                      width: 200,
-                                      fit: BoxFit.fill,
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                      child: ImageHelper(
+                                        imagePath: controller.animeDataModel
+                                                .value.episodes?[index].image ??
+                                            '',
+                                        height: 110,
+                                        width: 200,
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                     Positioned(
                                       top: 0,
@@ -627,6 +633,21 @@ class AnimeDetailsPage extends StatelessWidget {
                                 ),
                               ),
                             ],
+                          ).onTap(
+                            () {
+                              Get.toNamed(
+                                Routes.videoPlayer,
+                                arguments: {
+                                  'id': controller.animeDataModel.value
+                                          .episodes?[index].id ??
+                                      '',
+                                  'data': controller
+                                      .animeDataModel.value.episodes?[index],
+                                  'name':
+                                      '${(controller.animeDataModel.value.title?.english ?? controller.animeDataModel.value.title?.native ?? controller.animeDataModel.value.title?.romaji ?? controller.animeDataModel.value.title?.userPreferred)}',
+                                },
+                              );
+                            },
                           ).paddingOnly(
                             left: index == 0 ? 0 : 20,
                           );

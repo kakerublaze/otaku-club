@@ -25,7 +25,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  80.heightBox,
+                  100.heightBox,
                   // Trending anime Slider
                   CarouselSlider(
                     items: controller.trendingAnimeList.asMap().entries.map(
@@ -164,7 +164,6 @@ class HomeScreen extends GetView<HomeScreenController> {
                       (entry) {
                         int index = entry.key;
                         double width;
-
                         if (controller.currentIndex.value == index) {
                           // Wider dot for the selected index
                           width = 35.0;
@@ -208,7 +207,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                         'Airing Soon',
                         style: TextStyle(
                           color: AppColor.white,
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -222,7 +221,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                   10.heightBox,
                   SizedBox(
                     width: Get.width,
-                    height: Get.height * 0.2,
+                    height: Get.height * 0.15,
                     child: ListView.builder(
                       itemCount: controller.airingScheduleAnimeList.length,
                       scrollDirection: Axis.horizontal,
@@ -243,7 +242,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                           displayText = 'Airing in ${difference.inHours} Hours';
                         }
                         return Container(
-                          width: Get.width * 0.85,
+                          width: Get.width * 0.75,
                           decoration: BoxDecoration(
                             color: AppColor.white30,
                             borderRadius: BorderRadius.circular(
@@ -264,13 +263,13 @@ class HomeScreen extends GetView<HomeScreenController> {
                                           .airingScheduleAnimeList[index]
                                           .image ??
                                       '',
-                                  height: Get.height * 0.2,
-                                  width: Get.width * 0.3,
+                                  height: Get.height * 0.15,
+                                  width: Get.width * 0.25,
                                   fit: BoxFit.fill,
                                 ),
                               ),
                               SizedBox(
-                                width: Get.width * 0.5,
+                                width: Get.width * 0.45,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -298,7 +297,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                         maxLines: 2,
                                         style: const TextStyle(
                                           color: AppColor.white,
-                                          fontSize: 18,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
@@ -308,7 +307,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                       'Episode : ${controller.airingScheduleAnimeList[index].episode}',
                                       style: const TextStyle(
                                         color: AppColor.white70,
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
@@ -317,7 +316,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                       displayText,
                                       style: const TextStyle(
                                         color: AppColor.white70,
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
@@ -330,7 +329,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                               Icons.star,
                                               color: AppColor
                                                   .white60, // Choose the color you prefer
-                                              size: 20, // Adjust size as needed
+                                              size: 18, // Adjust size as needed
                                             ),
                                           ),
                                           TextSpan(
@@ -343,7 +342,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                                 : '  N/A',
                                             style: const TextStyle(
                                               color: AppColor.white70,
-                                              fontSize: 16,
+                                              fontSize: 14,
                                               fontWeight: FontWeight.w700,
                                             ),
                                           ),
@@ -374,7 +373,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                         'Latest Released Episodes',
                         style: TextStyle(
                           color: AppColor.white,
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -388,13 +387,13 @@ class HomeScreen extends GetView<HomeScreenController> {
                   10.heightBox,
                   SizedBox(
                     width: Get.width,
-                    height: Get.height * 0.2,
+                    height: Get.height * 0.15,
                     child: ListView.builder(
                       itemCount: controller.recentEpisodeDataList.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Container(
-                          width: Get.width * 0.85,
+                          width: Get.width * 0.75,
                           decoration: BoxDecoration(
                             color: AppColor.white30,
                             borderRadius: BorderRadius.circular(
@@ -414,13 +413,13 @@ class HomeScreen extends GetView<HomeScreenController> {
                                   imagePath: controller
                                           .recentEpisodeDataList[index].image ??
                                       '',
-                                  height: Get.height * 0.2,
-                                  width: Get.width * 0.3,
+                                  height: Get.height * 0.15,
+                                  width: Get.width * 0.25,
                                   fit: BoxFit.fill,
                                 ),
                               ),
                               SizedBox(
-                                width: Get.width * 0.5,
+                                width: Get.width * 0.45,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -442,7 +441,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                         maxLines: 2,
                                         style: const TextStyle(
                                           color: AppColor.white,
-                                          fontSize: 18,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
@@ -452,7 +451,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                       'Episode : ${controller.recentEpisodeDataList[index].episodeNumber}',
                                       style: const TextStyle(
                                         color: AppColor.white70,
-                                        fontSize: 18,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
@@ -465,41 +464,42 @@ class HomeScreen extends GetView<HomeScreenController> {
                                             text: 'Type: ',
                                             style: TextStyle(
                                               color: AppColor.white70,
-                                              fontSize: 18,
+                                              fontSize: 14,
                                               fontWeight: FontWeight.w700,
                                             ),
                                           ),
                                           WidgetSpan(
-                                              child: Container(
-                                            padding: const EdgeInsets.only(
-                                              left: 20,
-                                              right: 20,
-                                              top: 1,
-                                              bottom: 1,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: AppColor.blueAccent
-                                                  .withOpacity(0.6),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                10,
+                                            child: Container(
+                                              padding: const EdgeInsets.only(
+                                                left: 20,
+                                                right: 20,
+                                                top: 1,
+                                                bottom: 1,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: AppColor.blueAccent
+                                                    .withOpacity(0.6),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  10,
+                                                ),
+                                              ),
+                                              child: Text(
+                                                controller
+                                                            .recentEpisodeDataList[
+                                                                index]
+                                                            .type !=
+                                                        null
+                                                    ? '${controller.recentEpisodeDataList[index].type}'
+                                                    : 'N/A',
+                                                style: const TextStyle(
+                                                  color: AppColor.white70,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
                                               ),
                                             ),
-                                            child: Text(
-                                              controller
-                                                          .recentEpisodeDataList[
-                                                              index]
-                                                          .type !=
-                                                      null
-                                                  ? '${controller.recentEpisodeDataList[index].type}'
-                                                  : 'N/A',
-                                              style: const TextStyle(
-                                                color: AppColor.white70,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                          )),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -540,15 +540,14 @@ class HomeScreen extends GetView<HomeScreenController> {
                   ),
                   10.heightBox,
                   SizedBox(
-                    height: Get.height * 0.4,
+                    height: Get.height * 0.32,
                     width: Get.width,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.trendingAnimeList.length,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          height: Get.height * 0.4,
-                          width: Get.width * 0.35,
+                          width: Get.width * 0.25,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -561,8 +560,8 @@ class HomeScreen extends GetView<HomeScreenController> {
                                   imagePath: controller
                                           .trendingAnimeList[index].image ??
                                       '',
-                                  height: Get.height * 0.3,
-                                  width: Get.width * 0.35,
+                                  height: Get.height * 0.22,
+                                  width: Get.width * 0.25,
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -587,6 +586,15 @@ class HomeScreen extends GetView<HomeScreenController> {
                               ),
                             ],
                           ),
+                        ).onTap(
+                          () {
+                            Get.toNamed(
+                              Routes.animeDetailsScreen,
+                              arguments: {
+                                'id': controller.trendingAnimeList[index].id,
+                              },
+                            );
+                          },
                         ).paddingOnly(
                           right: 20,
                         );
@@ -601,7 +609,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                         'Popular Anime',
                         style: TextStyle(
                           color: AppColor.white,
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -614,15 +622,14 @@ class HomeScreen extends GetView<HomeScreenController> {
                   ),
                   10.heightBox,
                   SizedBox(
-                    height: Get.height * 0.4,
+                    height: Get.height * 0.32,
                     width: Get.width,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.popularAnimeList.length,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          height: Get.height * 0.4,
-                          width: Get.width * 0.35,
+                          width: Get.width * 0.25,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -635,8 +642,8 @@ class HomeScreen extends GetView<HomeScreenController> {
                                   imagePath: controller
                                           .popularAnimeList[index].image ??
                                       '',
-                                  height: Get.height * 0.3,
-                                  width: Get.width * 0.35,
+                                  height: Get.height * 0.22,
+                                  width: Get.width * 0.25,
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -661,6 +668,15 @@ class HomeScreen extends GetView<HomeScreenController> {
                               ),
                             ],
                           ),
+                        ).onTap(
+                          () {
+                            Get.toNamed(
+                              Routes.animeDetailsScreen,
+                              arguments: {
+                                'id': controller.popularAnimeList[index].id,
+                              },
+                            );
+                          },
                         ).paddingOnly(
                           right: 20,
                         );
@@ -676,7 +692,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                         'Suggested For You',
                         style: TextStyle(
                           color: AppColor.white,
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -693,7 +709,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                       10,
                     ),
                     child: SizedBox(
-                      height: Get.height * 0.4,
+                      height: Get.height * 0.3,
                       width: Get.width,
                       child: Stack(
                         children: [
@@ -715,7 +731,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                   '',
                               width: Get.width,
                               height: Get.height,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                             ),
                           ),
                           Positioned(
@@ -740,7 +756,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                 '#For You',
                                 style: TextStyle(
                                   color: AppColor.white,
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w800,
                                 ),
                               ).paddingOnly(
@@ -770,7 +786,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   color: AppColor.white,
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w800,
                                 ),
                               ),
@@ -779,6 +795,15 @@ class HomeScreen extends GetView<HomeScreenController> {
                         ],
                       ),
                     ),
+                  ).onTap(
+                    () {
+                      Get.toNamed(
+                        Routes.animeDetailsScreen,
+                        arguments: {
+                          'id': controller.suggestedAnimeForYouData.value.id,
+                        },
+                      );
+                    },
                   ),
                   30.heightBox,
                   // --> Manga List
@@ -789,7 +814,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                         'Latest Manga',
                         style: TextStyle(
                           color: AppColor.white,
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -802,15 +827,14 @@ class HomeScreen extends GetView<HomeScreenController> {
                   ),
                   10.heightBox,
                   SizedBox(
-                    height: Get.height * 0.4,
+                    height: Get.height * 0.32,
                     width: Get.width,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.mangaList.length,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          height: Get.height * 0.4,
-                          width: Get.width * 0.35,
+                          width: Get.width * 0.25,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -822,8 +846,8 @@ class HomeScreen extends GetView<HomeScreenController> {
                                 child: ImageHelper(
                                   imagePath:
                                       controller.mangaList[index].image ?? '',
-                                  height: Get.height * 0.3,
-                                  width: Get.width * 0.35,
+                                  height: Get.height * 0.22,
+                                  width: Get.width * 0.25,
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -846,7 +870,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                       },
                     ),
                   ),
-                  100.heightBox,
+                  80.heightBox,
                 ],
               ).paddingOnly(
                 left: 10,
