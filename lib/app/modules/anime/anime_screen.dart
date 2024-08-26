@@ -4,6 +4,7 @@ import 'package:otakuclub/app/core/constants/app_colors.dart';
 import 'package:otakuclub/app/core/utils/extensions.dart';
 import 'package:otakuclub/app/core/utils/helpers/image_helper.dart';
 import 'package:otakuclub/app/modules/anime/anime_screen_controller.dart';
+import 'package:otakuclub/app/routes/app_pages.dart';
 
 class AnimeScreen extends StatelessWidget {
   const AnimeScreen({super.key});
@@ -64,6 +65,15 @@ class AnimeScreen extends StatelessWidget {
                           ),
                         ),
                       ],
+                    ).onTap(
+                      () {
+                        Get.toNamed(
+                          Routes.animeDetailsScreen,
+                          arguments: {
+                            'id': controller.popularAnimeList[index].id,
+                          },
+                        );
+                      },
                     );
                   },
                 ),
