@@ -1,4 +1,3 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -14,33 +13,33 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DependencyInjector.init();
 
-  final os = await DeviceInfoPlugin().androidInfo;
-  final sdkVer = os.version.sdkInt;
+  // final os = await DeviceInfoPlugin().androidInfo;
+  // final sdkVer = os.version.sdkInt;
 
-  Permission access;
+  // Permission access;
 
-  if (sdkVer > 32) {
-    access = Permission.videos;
-  } else {
-    access = Permission.storage;
-  }
-  final storageStatus = await access.request();
+  // if (sdkVer > 32) {
+  //   access = Permission.videos;
+  // } else {
+  //   access = Permission.storage;
+  // }
+  // final storageStatus = await access.request();
   final notificationStatus = await Permission.notification.request();
-  if (storageStatus.isGranted) {
-    debugPrint('Storage Permission granted');
-  } else if (storageStatus.isDenied) {
-    debugPrint('Permission denied');
-    await Permission.storage.request();
-  } else if (storageStatus.isPermanentlyDenied) {
-    debugPrint('Permission permanently denied');
-    Get.showSnackbar(
-      const GetSnackBar(
-        message: 'Give Storage Permission',
-        backgroundColor: AppColor.red,
-      ),
-    );
-    await openAppSettings();
-  }
+  // if (storageStatus.isGranted) {
+  //   debugPrint('Storage Permission granted');
+  // } else if (storageStatus.isDenied) {
+  //   debugPrint('Permission denied');
+  //   await Permission.storage.request();
+  // } else if (storageStatus.isPermanentlyDenied) {
+  //   debugPrint('Permission permanently denied');
+  //   Get.showSnackbar(
+  //     const GetSnackBar(
+  //       message: 'Give Storage Permission',
+  //       backgroundColor: AppColor.red,
+  //     ),
+  //   );
+  //   await openAppSettings();
+  // }
 
   if (notificationStatus.isGranted) {
     debugPrint('Notification Permission granted');
