@@ -28,117 +28,130 @@ class HomeScreen extends GetView<HomeScreenController> {
                   100.heightBox,
                   // Trending anime Slider
                   CarouselSlider(
-                    items: controller.trendingAnimeList.asMap().entries.map(
-                      (entry) {
-                        int index = entry.key;
-                        var element = entry.value;
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(
+                    items: controller.loadingStates['trending'] == true
+                        ? List.generate(
                             10,
-                          ),
-                          child: SizedBox(
-                            width: Get.width,
-                            height: Get.height * 0.2,
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                    10,
-                                  ),
-                                  child: ShaderMask(
-                                    shaderCallback: (rect) {
-                                      return AppColor.getStartedGradient
-                                          .createShader(
-                                        Rect.fromLTRB(
-                                          0,
-                                          0,
-                                          Get.width,
-                                          rect.height,
-                                        ),
-                                      );
-                                    },
-                                    blendMode: BlendMode.dstOut,
-                                    child: ImageHelper(
-                                      imagePath: element.image ?? '',
-                                      width: Get.width,
-                                      height: Get.height,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 0,
-                                  right: 0,
-                                  child: ShaderMask(
-                                    shaderCallback: (rect) {
-                                      return LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        colors: [
-                                          Colors.white.withOpacity(0.15),
-                                          Colors.white.withOpacity(0.15),
-                                        ],
-                                        stops: const [0.0, 1.0],
-                                      ).createShader(
-                                        Rect.fromLTRB(
-                                            0, 0, rect.width, rect.height),
-                                      );
-                                    },
-                                    blendMode: BlendMode.dstOver,
-                                    child: Text(
-                                      '#${index + 1}',
-                                      style: const TextStyle(
-                                        color: AppColor.white,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w800,
-                                      ),
-                                    ).paddingOnly(
-                                      right: 10,
-                                      left: 15,
-                                      top: 15,
-                                      bottom: 5,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  left: 10,
-                                  child: SizedBox(
-                                    width: Get.width * 0.8,
-                                    child: Text(
-                                      element.title?.english ??
-                                          element.title?.native ??
-                                          element.title?.romaji ??
-                                          element.title?.userPreferred ??
-                                          '',
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        color: AppColor.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w800,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            (index) => ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              child: controller.getShimmerPlaceholder(
+                                width: Get.width,
+                                height: Get.height * 0.2,
+                              ),
                             ),
-                          ),
-                        ).onTap(
-                          () {
-                            Get.toNamed(
-                              Routes.animeDetailsScreen,
-                              arguments: {
-                                'id': element.id,
-                              },
-                            );
-                          },
-                        ).paddingOnly(
-                          left: 10,
-                          right: 10,
-                        );
-                      },
-                    ).toList(),
+                          )
+                        : controller.trendingAnimeList.asMap().entries.map(
+                            (entry) {
+                              int index = entry.key;
+                              var element = entry.value;
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                  10,
+                                ),
+                                child: SizedBox(
+                                  width: Get.width,
+                                  height: Get.height * 0.2,
+                                  child: Stack(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                          10,
+                                        ),
+                                        child: ShaderMask(
+                                          shaderCallback: (rect) {
+                                            return AppColor.getStartedGradient
+                                                .createShader(
+                                              Rect.fromLTRB(
+                                                0,
+                                                0,
+                                                Get.width,
+                                                rect.height,
+                                              ),
+                                            );
+                                          },
+                                          blendMode: BlendMode.dstOut,
+                                          child: ImageHelper(
+                                            imagePath: element.image ?? '',
+                                            width: Get.width,
+                                            height: Get.height,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 0,
+                                        right: 0,
+                                        child: ShaderMask(
+                                          shaderCallback: (rect) {
+                                            return LinearGradient(
+                                              begin: Alignment.topLeft,
+                                              end: Alignment.bottomRight,
+                                              colors: [
+                                                Colors.white.withOpacity(0.15),
+                                                Colors.white.withOpacity(0.15),
+                                              ],
+                                              stops: const [0.0, 1.0],
+                                            ).createShader(
+                                              Rect.fromLTRB(0, 0, rect.width,
+                                                  rect.height),
+                                            );
+                                          },
+                                          blendMode: BlendMode.dstOver,
+                                          child: Text(
+                                            '#${index + 1}',
+                                            style: const TextStyle(
+                                              color: AppColor.white,
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          ).paddingOnly(
+                                            right: 10,
+                                            left: 15,
+                                            top: 15,
+                                            bottom: 5,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 0,
+                                        left: 10,
+                                        child: SizedBox(
+                                          width: Get.width * 0.8,
+                                          child: Text(
+                                            element.title?.english ??
+                                                element.title?.native ??
+                                                element.title?.romaji ??
+                                                element.title?.userPreferred ??
+                                                '',
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              color: AppColor.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ).onTap(
+                                () {
+                                  Get.toNamed(
+                                    Routes.animeDetailsScreen,
+                                    arguments: {
+                                      'id': element.id,
+                                    },
+                                  );
+                                },
+                              ).paddingOnly(
+                                left: 10,
+                                right: 10,
+                              );
+                            },
+                          ).toList(),
                     options: CarouselOptions(
                       height: Get.height * 0.25,
                       scrollDirection: Axis.horizontal,

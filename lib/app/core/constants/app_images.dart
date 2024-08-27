@@ -16,4 +16,5 @@ class AppImages {
   static const tvIcon = 'assets/images/tv_icon.png';
   static const durationIcon = 'assets/images/duration_icon.png';
   static const currentStatusIcon = 'assets/images/current_status_icon.png';
+  static const brokenImageIcon = 'assets/images/brokeImage.png';
 }

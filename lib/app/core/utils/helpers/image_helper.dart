@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:otakuclub/app/core/constants/app_colors.dart';
+import 'package:otakuclub/app/core/constants/app_images.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ImageHelper extends StatelessWidget {
   final String imagePath;
@@ -44,6 +47,13 @@ class ImageHelper extends StatelessWidget {
         width: width,
         fit: fit,
         color: color,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return _getShimmerPlaceholder();
+        },
+        errorBuilder: (context, error, stackTrace) {
+          return _getErrorImage();
+        },
       );
     } else if (path.startsWith('/')) {
       // File Image (Absolute path)
@@ -53,6 +63,9 @@ class ImageHelper extends StatelessWidget {
         width: width,
         fit: fit,
         color: color,
+        errorBuilder: (context, error, stackTrace) {
+          return _getErrorImage();
+        },
       );
     } else {
       // Asset Image
@@ -62,6 +75,9 @@ class ImageHelper extends StatelessWidget {
         width: width,
         fit: fit,
         color: color,
+        errorBuilder: (context, error, stackTrace) {
+          return _getErrorImage();
+        },
       );
     }
   }
@@ -80,6 +96,7 @@ class ImageHelper extends StatelessWidget {
           color ?? Colors.transparent,
           BlendMode.srcIn,
         ),
+        placeholderBuilder: (context) => _getShimmerPlaceholder(),
       );
     } else if (path.startsWith('/')) {
       // File SVG (Absolute path)
@@ -92,6 +109,7 @@ class ImageHelper extends StatelessWidget {
           color ?? Colors.transparent,
           BlendMode.srcIn,
         ),
+        placeholderBuilder: (context) => _getShimmerPlaceholder(),
       );
     } else {
       // Asset SVG
@@ -104,7 +122,36 @@ class ImageHelper extends StatelessWidget {
           color ?? Colors.transparent,
           BlendMode.srcIn,
         ),
+        placeholderBuilder: (context) => _getShimmerPlaceholder(),
       );
     }
+  }
+
+  Widget _getShimmerPlaceholder() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[600]!,
+      highlightColor: Colors.grey[300]!,
+      child: Container(
+        height: height,
+        width: width,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Widget _getErrorImage() {
+    return AppImages.brokenImageIcon != ''
+        ? Image.asset(
+            AppImages.brokenImageIcon,
+            height: height,
+            width: width,
+            fit: fit,
+            color: AppColor.white,
+          )
+        : const Icon(
+            Icons.error,
+            size: 50,
+            color: AppColor.white,
+          );
   }
 }
