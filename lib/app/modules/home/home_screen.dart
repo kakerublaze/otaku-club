@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:otakuclub/app/core/utils/extensions.dart';
 import 'package:otakuclub/app/core/utils/helpers/image_helper.dart';
+import 'package:otakuclub/app/global_widgets/header_title_widget.dart';
 import 'package:otakuclub/app/global_widgets/shimmers/home_airing_shimmer.dart';
 import 'package:otakuclub/app/global_widgets/shimmers/home_cards_shimmer.dart';
 import 'package:otakuclub/app/global_widgets/shimmers/home_slider_shimmer.dart';
@@ -217,23 +218,9 @@ class HomeScreen extends GetView<HomeScreenController> {
 
                   25.heightBox,
                   // Airing Soon
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Airing Soon',
-                        style: TextStyle(
-                          color: AppColor.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward,
-                        size: 26,
-                        color: AppColor.white,
-                      ),
-                    ],
+                  getHeaderWidget(
+                    title: 'Airing Soon',
+                    onTap: () {},
                   ),
                   10.heightBox,
                   controller.loadingStates['airing'] == true
@@ -396,23 +383,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                         ),
                   20.heightBox,
                   // Latest Released Episodes
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Latest Released Episodes',
-                        style: TextStyle(
-                          color: AppColor.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward,
-                        size: 26,
-                        color: AppColor.white,
-                      ),
-                    ],
+                  getHeaderWidget(
+                    title: 'Latest Released Episodes',
+                    onTap: () {},
                   ),
                   10.heightBox,
                   controller.loadingStates['recentEpisode'] == true
@@ -562,23 +535,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                         ),
                   20.heightBox,
                   // Trending Now
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Trending Now',
-                        style: TextStyle(
-                          color: AppColor.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward,
-                        size: 26,
-                        color: AppColor.white,
-                      ),
-                    ],
+                  getHeaderWidget(
+                    title: 'Trending Now',
+                    onTap: () {},
                   ),
                   10.heightBox,
                   controller.loadingStates['trending'] == true
@@ -680,23 +639,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                           ),
                         ),
                   // Popular Anime
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Popular Anime',
-                        style: TextStyle(
-                          color: AppColor.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward,
-                        size: 26,
-                        color: AppColor.white,
-                      ),
-                    ],
+                  getHeaderWidget(
+                    title: 'Popular Anime',
+                    onTap: () {},
                   ),
                   10.heightBox,
                   controller.loadingStates['popular'] == true
@@ -797,23 +742,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                         ),
 
                   // Suggested For You
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Suggested For You',
-                        style: TextStyle(
-                          color: AppColor.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward,
-                        size: 26,
-                        color: AppColor.white,
-                      ),
-                    ],
+                  getHeaderWidget(
+                    title: 'Suggested For You',
+                    onTap: () {},
                   ),
                   10.heightBox,
                   controller.loadingStates['suggested'] == true
@@ -926,94 +857,84 @@ class HomeScreen extends GetView<HomeScreenController> {
                         ),
                   30.heightBox,
                   // --> Manga List
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Latest Manga',
-                        style: TextStyle(
-                          color: AppColor.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward,
-                        size: 26,
-                        color: AppColor.white,
-                      ),
-                    ],
+                  getHeaderWidget(
+                    title: 'Latest Manga',
+                    onTap: () {},
                   ),
                   10.heightBox,
-                  SizedBox(
-                    height: Get.height * 0.32,
-                    width: Get.width,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.mangaList.length,
-                      itemBuilder: (context, index) {
-                        return SizedBox(
-                          width: Get.width * 0.36,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  ShaderMask(
-                                    shaderCallback: (rect) {
-                                      return AppColor.getStartedGradient
-                                          .createShader(
-                                        Rect.fromLTRB(
-                                          0,
-                                          0,
-                                          Get.width,
-                                          rect.height,
+                  controller.loadingStates['manga'] == true
+                      ? getHomeCardShimmer()
+                      : SizedBox(
+                          height: Get.height * 0.32,
+                          width: Get.width,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.mangaList.length,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                width: Get.width * 0.36,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        ShaderMask(
+                                          shaderCallback: (rect) {
+                                            return AppColor.getStartedGradient
+                                                .createShader(
+                                              Rect.fromLTRB(
+                                                0,
+                                                0,
+                                                Get.width,
+                                                rect.height,
+                                              ),
+                                            );
+                                          },
+                                          blendMode: BlendMode.dstOut,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
+                                            child: ImageHelper(
+                                              imagePath: controller
+                                                      .mangaList[index].image ??
+                                                  '',
+                                              height: Get.height * 0.3,
+                                              width: Get.width * 0.36,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
                                         ),
-                                      );
-                                    },
-                                    blendMode: BlendMode.dstOut,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(
-                                        10,
-                                      ),
-                                      child: ImageHelper(
-                                        imagePath:
-                                            controller.mangaList[index].image ??
-                                                '',
-                                        height: Get.height * 0.3,
-                                        width: Get.width * 0.36,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 10,
-                                    left: 5,
-                                    child: SizedBox(
-                                      width: Get.width * 0.3,
-                                      child: Text(
-                                        controller.mangaList[index].title ?? '',
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          color: AppColor.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
+                                        Positioned(
+                                          bottom: 10,
+                                          left: 5,
+                                          child: SizedBox(
+                                            width: Get.width * 0.3,
+                                            child: Text(
+                                              controller
+                                                      .mangaList[index].title ??
+                                                  '',
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                color: AppColor.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ).paddingOnly(
+                                right: 20,
+                              );
+                            },
                           ),
-                        ).paddingOnly(
-                          right: 20,
-                        );
-                      },
-                    ),
-                  ),
+                        ),
                   80.heightBox,
                 ],
               ).paddingOnly(
