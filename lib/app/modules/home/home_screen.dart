@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:otakuclub/app/core/utils/extensions.dart';
 import 'package:otakuclub/app/core/utils/helpers/image_helper.dart';
+import 'package:otakuclub/app/global_widgets/shimmers/home_airing_shimmer.dart';
+import 'package:otakuclub/app/global_widgets/shimmers/home_cards_shimmer.dart';
+import 'package:otakuclub/app/global_widgets/shimmers/home_slider_shimmer.dart';
+import 'package:otakuclub/app/global_widgets/shimmers/home_suggested_shimmer.dart';
 import 'package:otakuclub/app/modules/home/home_screen_controller.dart';
 import 'package:otakuclub/app/routes/app_pages.dart';
 
@@ -26,7 +30,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   100.heightBox,
-                  // Trending anime Slider
+                  // --> Trending anime Slider
                   CarouselSlider(
                     items: controller.loadingStates['trending'] == true
                         ? List.generate(
@@ -35,7 +39,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                               borderRadius: BorderRadius.circular(
                                 10,
                               ),
-                              child: controller.getShimmerPlaceholder(
+                              child: getShimmerPlaceholder(
                                 width: Get.width,
                                 height: Get.height * 0.2,
                               ),
@@ -232,151 +236,164 @@ class HomeScreen extends GetView<HomeScreenController> {
                     ],
                   ),
                   10.heightBox,
-                  SizedBox(
-                    width: Get.width,
-                    height: Get.height * 0.15,
-                    child: ListView.builder(
-                      itemCount: controller.airingScheduleAnimeList.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        final airingAt = controller
-                                .airingScheduleAnimeList[index].airingAt ??
-                            1;
-                        final futureDateTime =
-                            DateTime.fromMillisecondsSinceEpoch(
-                                airingAt * 1000);
-                        final now = DateTime.now();
-                        final difference = futureDateTime.difference(now);
+                  controller.loadingStates['airing'] == true
+                      ? getHomeAiringSoonShimmer()
+                      : SizedBox(
+                          width: Get.width,
+                          height: Get.height * 0.15,
+                          child: ListView.builder(
+                            itemCount:
+                                controller.airingScheduleAnimeList.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              final airingAt = controller
+                                      .airingScheduleAnimeList[index]
+                                      .airingAt ??
+                                  1;
+                              final futureDateTime =
+                                  DateTime.fromMillisecondsSinceEpoch(
+                                      airingAt * 1000);
+                              final now = DateTime.now();
+                              final difference = futureDateTime.difference(now);
 
-                        String displayText;
-                        if (difference.inDays > 0) {
-                          displayText = 'Airing in ${difference.inDays} Days';
-                        } else {
-                          displayText = 'Airing in ${difference.inHours} Hours';
-                        }
-                        return Container(
-                          width: Get.width * 0.75,
-                          decoration: BoxDecoration(
-                            color: AppColor.white30,
-                            borderRadius: BorderRadius.circular(
-                              10,
-                            ),
-                          ),
-                          margin: const EdgeInsets.only(
-                            right: 15,
-                          ),
-                          child: Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                  10,
+                              String displayText;
+                              if (difference.inDays > 0) {
+                                displayText =
+                                    'Airing in ${difference.inDays} Days';
+                              } else {
+                                displayText =
+                                    'Airing in ${difference.inHours} Hours';
+                              }
+                              return Container(
+                                width: Get.width * 0.75,
+                                decoration: BoxDecoration(
+                                  color: AppColor.white30,
+                                  borderRadius: BorderRadius.circular(
+                                    10,
+                                  ),
                                 ),
-                                child: ImageHelper(
-                                  imagePath: controller
-                                          .airingScheduleAnimeList[index]
-                                          .image ??
-                                      '',
-                                  height: Get.height * 0.15,
-                                  width: Get.width * 0.25,
-                                  fit: BoxFit.fill,
+                                margin: const EdgeInsets.only(
+                                  right: 15,
                                 ),
-                              ),
-                              SizedBox(
-                                width: Get.width * 0.45,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                child: Row(
                                   children: [
-                                    Expanded(
-                                      child: Text(
-                                        controller
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                      child: ImageHelper(
+                                        imagePath: controller
                                                 .airingScheduleAnimeList[index]
-                                                .title
-                                                ?.english ??
-                                            controller
-                                                .airingScheduleAnimeList[index]
-                                                .title
-                                                ?.romaji ??
-                                            controller
-                                                .airingScheduleAnimeList[index]
-                                                .title
-                                                ?.native ??
-                                            controller
-                                                .airingScheduleAnimeList[index]
-                                                .title
-                                                ?.userPreferred ??
-                                            'N/A',
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 2,
-                                        style: const TextStyle(
-                                          color: AppColor.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700,
-                                        ),
+                                                .image ??
+                                            '',
+                                        height: Get.height * 0.15,
+                                        width: Get.width * 0.25,
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
-                                    10.heightBox,
-                                    Text(
-                                      'Episode : ${controller.airingScheduleAnimeList[index].episode}',
-                                      style: const TextStyle(
-                                        color: AppColor.white70,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    5.heightBox,
-                                    Text(
-                                      displayText,
-                                      style: const TextStyle(
-                                        color: AppColor.white70,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    5.heightBox,
-                                    RichText(
-                                      text: TextSpan(
+                                    SizedBox(
+                                      width: Get.width * 0.45,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          const WidgetSpan(
-                                            child: Icon(
-                                              Icons.star,
-                                              color: AppColor
-                                                  .white60, // Choose the color you prefer
-                                              size: 18, // Adjust size as needed
+                                          Expanded(
+                                            child: Text(
+                                              controller
+                                                      .airingScheduleAnimeList[
+                                                          index]
+                                                      .title
+                                                      ?.english ??
+                                                  controller
+                                                      .airingScheduleAnimeList[
+                                                          index]
+                                                      .title
+                                                      ?.romaji ??
+                                                  controller
+                                                      .airingScheduleAnimeList[
+                                                          index]
+                                                      .title
+                                                      ?.native ??
+                                                  controller
+                                                      .airingScheduleAnimeList[
+                                                          index]
+                                                      .title
+                                                      ?.userPreferred ??
+                                                  'N/A',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style: const TextStyle(
+                                                color: AppColor.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                             ),
                                           ),
-                                          TextSpan(
-                                            text: controller
-                                                        .airingScheduleAnimeList[
-                                                            index]
-                                                        .rating !=
-                                                    null
-                                                ? '  ${controller.airingScheduleAnimeList[index].rating}%'
-                                                : '  N/A',
+                                          10.heightBox,
+                                          Text(
+                                            'Episode : ${controller.airingScheduleAnimeList[index].episode}',
                                             style: const TextStyle(
                                               color: AppColor.white70,
-                                              fontSize: 14,
+                                              fontSize: 12,
                                               fontWeight: FontWeight.w700,
                                             ),
                                           ),
+                                          5.heightBox,
+                                          Text(
+                                            displayText,
+                                            style: const TextStyle(
+                                              color: AppColor.white70,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          5.heightBox,
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                const WidgetSpan(
+                                                  child: Icon(
+                                                    Icons.star,
+                                                    color: AppColor
+                                                        .white60, // Choose the color you prefer
+                                                    size:
+                                                        18, // Adjust size as needed
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: controller
+                                                              .airingScheduleAnimeList[
+                                                                  index]
+                                                              .rating !=
+                                                          null
+                                                      ? '  ${controller.airingScheduleAnimeList[index].rating}%'
+                                                      : '  N/A',
+                                                  style: const TextStyle(
+                                                    color: AppColor.white70,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ],
+                                      ).paddingOnly(
+                                        top: 10,
+                                        left: 15,
+                                        right: 10,
+                                        bottom: 10,
                                       ),
                                     ),
+                                    10.widthBox,
                                   ],
-                                ).paddingOnly(
-                                  top: 10,
-                                  left: 15,
-                                  right: 10,
-                                  bottom: 10,
                                 ),
-                              ),
-                              10.widthBox,
-                            ],
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ),
+                        ),
                   20.heightBox,
                   // Latest Released Episodes
                   const Row(
@@ -398,139 +415,151 @@ class HomeScreen extends GetView<HomeScreenController> {
                     ],
                   ),
                   10.heightBox,
-                  SizedBox(
-                    width: Get.width,
-                    height: Get.height * 0.15,
-                    child: ListView.builder(
-                      itemCount: controller.recentEpisodeDataList.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          width: Get.width * 0.75,
-                          decoration: BoxDecoration(
-                            color: AppColor.white30,
-                            borderRadius: BorderRadius.circular(
-                              10,
-                            ),
-                          ),
-                          margin: const EdgeInsets.only(
-                            right: 15,
-                          ),
-                          child: Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                  10,
+                  controller.loadingStates['recentEpisode'] == true
+                      ? getHomeAiringSoonShimmer()
+                      : SizedBox(
+                          width: Get.width,
+                          height: Get.height * 0.15,
+                          child: ListView.builder(
+                            itemCount: controller.recentEpisodeDataList.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                width: Get.width * 0.75,
+                                decoration: BoxDecoration(
+                                  color: AppColor.white30,
+                                  borderRadius: BorderRadius.circular(
+                                    10,
+                                  ),
                                 ),
-                                child: ImageHelper(
-                                  imagePath: controller
-                                          .recentEpisodeDataList[index].image ??
-                                      '',
-                                  height: Get.height * 0.15,
-                                  width: Get.width * 0.25,
-                                  fit: BoxFit.fill,
+                                margin: const EdgeInsets.only(
+                                  right: 15,
                                 ),
-                              ),
-                              SizedBox(
-                                width: Get.width * 0.45,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                child: Row(
                                   children: [
-                                    Expanded(
-                                      child: Text(
-                                        controller.recentEpisodeDataList[index]
-                                                .title?.english ??
-                                            controller
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                      child: ImageHelper(
+                                        imagePath: controller
                                                 .recentEpisodeDataList[index]
-                                                .title
-                                                ?.romaji ??
-                                            controller
-                                                .recentEpisodeDataList[index]
-                                                .title
-                                                ?.native ??
-                                            'N/A',
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 2,
-                                        style: const TextStyle(
-                                          color: AppColor.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700,
-                                        ),
+                                                .image ??
+                                            '',
+                                        height: Get.height * 0.15,
+                                        width: Get.width * 0.25,
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
-                                    10.heightBox,
-                                    Text(
-                                      'Episode : ${controller.recentEpisodeDataList[index].episodeNumber}',
-                                      style: const TextStyle(
-                                        color: AppColor.white70,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    5.heightBox,
-                                    RichText(
-                                      textAlign: TextAlign.center,
-                                      text: TextSpan(
+                                    SizedBox(
+                                      width: Get.width * 0.45,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          const TextSpan(
-                                            text: 'Type: ',
-                                            style: TextStyle(
+                                          Expanded(
+                                            child: Text(
+                                              controller
+                                                      .recentEpisodeDataList[
+                                                          index]
+                                                      .title
+                                                      ?.english ??
+                                                  controller
+                                                      .recentEpisodeDataList[
+                                                          index]
+                                                      .title
+                                                      ?.romaji ??
+                                                  controller
+                                                      .recentEpisodeDataList[
+                                                          index]
+                                                      .title
+                                                      ?.native ??
+                                                  'N/A',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style: const TextStyle(
+                                                color: AppColor.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                          10.heightBox,
+                                          Text(
+                                            'Episode : ${controller.recentEpisodeDataList[index].episodeNumber}',
+                                            style: const TextStyle(
                                               color: AppColor.white70,
                                               fontSize: 14,
                                               fontWeight: FontWeight.w700,
                                             ),
                                           ),
-                                          WidgetSpan(
-                                            child: Container(
-                                              padding: const EdgeInsets.only(
-                                                left: 20,
-                                                right: 20,
-                                                top: 1,
-                                                bottom: 1,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color: AppColor.blueAccent
-                                                    .withOpacity(0.6),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                  10,
+                                          5.heightBox,
+                                          RichText(
+                                            textAlign: TextAlign.center,
+                                            text: TextSpan(
+                                              children: [
+                                                const TextSpan(
+                                                  text: 'Type: ',
+                                                  style: TextStyle(
+                                                    color: AppColor.white70,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
                                                 ),
-                                              ),
-                                              child: Text(
-                                                controller
-                                                            .recentEpisodeDataList[
-                                                                index]
-                                                            .type !=
-                                                        null
-                                                    ? '${controller.recentEpisodeDataList[index].type}'
-                                                    : 'N/A',
-                                                style: const TextStyle(
-                                                  color: AppColor.white70,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
+                                                WidgetSpan(
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      left: 20,
+                                                      right: 20,
+                                                      top: 1,
+                                                      bottom: 1,
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      color: AppColor.blueAccent
+                                                          .withOpacity(0.6),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                        10,
+                                                      ),
+                                                    ),
+                                                    child: Text(
+                                                      controller
+                                                                  .recentEpisodeDataList[
+                                                                      index]
+                                                                  .type !=
+                                                              null
+                                                          ? '${controller.recentEpisodeDataList[index].type}'
+                                                          : 'N/A',
+                                                      style: const TextStyle(
+                                                        color: AppColor.white70,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
                                           ),
                                         ],
+                                      ).paddingOnly(
+                                        top: 10,
+                                        left: 15,
+                                        right: 10,
+                                        bottom: 10,
                                       ),
                                     ),
+                                    10.widthBox,
                                   ],
-                                ).paddingOnly(
-                                  top: 10,
-                                  left: 15,
-                                  right: 10,
-                                  bottom: 10,
                                 ),
-                              ),
-                              10.widthBox,
-                            ],
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ),
+                        ),
                   20.heightBox,
                   // Trending Now
                   const Row(
@@ -552,68 +581,104 @@ class HomeScreen extends GetView<HomeScreenController> {
                     ],
                   ),
                   10.heightBox,
-                  SizedBox(
-                    height: Get.height * 0.32,
-                    width: Get.width,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.trendingAnimeList.length,
-                      itemBuilder: (context, index) {
-                        return SizedBox(
-                          width: Get.width * 0.25,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                  10,
+                  controller.loadingStates['trending'] == true
+                      ? getHomeCardShimmer()
+                      : SizedBox(
+                          height: Get.height * 0.32,
+                          width: Get.width,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.trendingAnimeList.length,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                width: Get.width * 0.36,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        ShaderMask(
+                                          shaderCallback: (rect) {
+                                            return AppColor.getStartedGradient
+                                                .createShader(
+                                              Rect.fromLTRB(
+                                                0,
+                                                0,
+                                                Get.width,
+                                                rect.height,
+                                              ),
+                                            );
+                                          },
+                                          blendMode: BlendMode.dstOut,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
+                                            child: ImageHelper(
+                                              imagePath: controller
+                                                      .trendingAnimeList[index]
+                                                      .image ??
+                                                  '',
+                                              height: Get.height * 0.3,
+                                              width: Get.width * 0.36,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 10,
+                                          left: 5,
+                                          child: SizedBox(
+                                            width: Get.width * 0.3,
+                                            child: Text(
+                                              controller
+                                                      .trendingAnimeList[index]
+                                                      .title
+                                                      ?.english ??
+                                                  controller
+                                                      .trendingAnimeList[index]
+                                                      .title
+                                                      ?.romaji ??
+                                                  controller
+                                                      .trendingAnimeList[index]
+                                                      .title
+                                                      ?.native ??
+                                                  controller
+                                                      .trendingAnimeList[index]
+                                                      .title
+                                                      ?.userPreferred ??
+                                                  '',
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                color: AppColor.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                child: ImageHelper(
-                                  imagePath: controller
-                                          .trendingAnimeList[index].image ??
-                                      '',
-                                  height: Get.height * 0.22,
-                                  width: Get.width * 0.25,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              10.heightBox,
-                              Text(
-                                controller.trendingAnimeList[index].title
-                                        ?.english ??
-                                    controller.trendingAnimeList[index].title
-                                        ?.romaji ??
-                                    controller.trendingAnimeList[index].title
-                                        ?.native ??
-                                    controller.trendingAnimeList[index].title
-                                        ?.userPreferred ??
-                                    '',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: AppColor.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ],
+                              ).onTap(
+                                () {
+                                  Get.toNamed(
+                                    Routes.animeDetailsScreen,
+                                    arguments: {
+                                      'id': controller
+                                          .trendingAnimeList[index].id,
+                                    },
+                                  );
+                                },
+                              ).paddingOnly(
+                                right: 20,
+                              );
+                            },
                           ),
-                        ).onTap(
-                          () {
-                            Get.toNamed(
-                              Routes.animeDetailsScreen,
-                              arguments: {
-                                'id': controller.trendingAnimeList[index].id,
-                              },
-                            );
-                          },
-                        ).paddingOnly(
-                          right: 20,
-                        );
-                      },
-                    ),
-                  ),
+                        ),
                   // Popular Anime
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -634,68 +699,102 @@ class HomeScreen extends GetView<HomeScreenController> {
                     ],
                   ),
                   10.heightBox,
-                  SizedBox(
-                    height: Get.height * 0.32,
-                    width: Get.width,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.popularAnimeList.length,
-                      itemBuilder: (context, index) {
-                        return SizedBox(
-                          width: Get.width * 0.25,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                  10,
+                  controller.loadingStates['popular'] == true
+                      ? getHomeCardShimmer()
+                      : SizedBox(
+                          height: Get.height * 0.32,
+                          width: Get.width,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.popularAnimeList.length,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                width: Get.width * 0.36,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        ShaderMask(
+                                          shaderCallback: (rect) {
+                                            return AppColor.getStartedGradient
+                                                .createShader(
+                                              Rect.fromLTRB(
+                                                0,
+                                                0,
+                                                Get.width,
+                                                rect.height,
+                                              ),
+                                            );
+                                          },
+                                          blendMode: BlendMode.dstOut,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
+                                            child: ImageHelper(
+                                              imagePath: controller
+                                                      .popularAnimeList[index]
+                                                      .image ??
+                                                  '',
+                                              height: Get.height * 0.3,
+                                              width: Get.width * 0.36,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 10,
+                                          left: 5,
+                                          child: SizedBox(
+                                            width: Get.width * 0.3,
+                                            child: Text(
+                                              controller.popularAnimeList[index]
+                                                      .title?.english ??
+                                                  controller
+                                                      .popularAnimeList[index]
+                                                      .title
+                                                      ?.romaji ??
+                                                  controller
+                                                      .popularAnimeList[index]
+                                                      .title
+                                                      ?.native ??
+                                                  controller
+                                                      .popularAnimeList[index]
+                                                      .title
+                                                      ?.userPreferred ??
+                                                  '',
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                color: AppColor.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                child: ImageHelper(
-                                  imagePath: controller
-                                          .popularAnimeList[index].image ??
-                                      '',
-                                  height: Get.height * 0.22,
-                                  width: Get.width * 0.25,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              10.heightBox,
-                              Text(
-                                controller.popularAnimeList[index].title
-                                        ?.english ??
-                                    controller.popularAnimeList[index].title
-                                        ?.romaji ??
-                                    controller.popularAnimeList[index].title
-                                        ?.native ??
-                                    controller.popularAnimeList[index].title
-                                        ?.userPreferred ??
-                                    '',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: AppColor.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ],
+                              ).onTap(
+                                () {
+                                  Get.toNamed(
+                                    Routes.animeDetailsScreen,
+                                    arguments: {
+                                      'id':
+                                          controller.popularAnimeList[index].id,
+                                    },
+                                  );
+                                },
+                              ).paddingOnly(
+                                right: 20,
+                              );
+                            },
                           ),
-                        ).onTap(
-                          () {
-                            Get.toNamed(
-                              Routes.animeDetailsScreen,
-                              arguments: {
-                                'id': controller.popularAnimeList[index].id,
-                              },
-                            );
-                          },
-                        ).paddingOnly(
-                          right: 20,
-                        );
-                      },
-                    ),
-                  ),
+                        ),
 
                   // Suggested For You
                   const Row(
@@ -717,107 +816,114 @@ class HomeScreen extends GetView<HomeScreenController> {
                     ],
                   ),
                   10.heightBox,
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                      10,
-                    ),
-                    child: SizedBox(
-                      height: Get.height * 0.3,
-                      width: Get.width,
-                      child: Stack(
-                        children: [
-                          ShaderMask(
-                            shaderCallback: (rect) {
-                              return AppColor.getStartedGradient.createShader(
-                                Rect.fromLTRB(
-                                  0,
-                                  0,
-                                  Get.width,
-                                  rect.height,
+                  controller.loadingStates['suggested'] == true
+                      ? getHomeSuggestedShimmer()
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                            10,
+                          ),
+                          child: SizedBox(
+                            height: Get.height * 0.3,
+                            width: Get.width,
+                            child: Stack(
+                              children: [
+                                ShaderMask(
+                                  shaderCallback: (rect) {
+                                    return AppColor.getStartedGradient
+                                        .createShader(
+                                      Rect.fromLTRB(
+                                        0,
+                                        0,
+                                        Get.width,
+                                        rect.height,
+                                      ),
+                                    );
+                                  },
+                                  blendMode: BlendMode.dstOut,
+                                  child: ImageHelper(
+                                    imagePath: controller
+                                            .suggestedAnimeForYouData
+                                            .value
+                                            .image ??
+                                        '',
+                                    width: Get.width,
+                                    height: Get.height,
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
-                              );
-                            },
-                            blendMode: BlendMode.dstOut,
-                            child: ImageHelper(
-                              imagePath: controller
-                                      .suggestedAnimeForYouData.value.image ??
-                                  '',
-                              width: Get.width,
-                              height: Get.height,
-                              fit: BoxFit.fill,
+                                Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: ShaderMask(
+                                    shaderCallback: (rect) {
+                                      return LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          Colors.white.withOpacity(0.15),
+                                          Colors.white.withOpacity(0.15),
+                                        ],
+                                        stops: const [0.0, 1.0],
+                                      ).createShader(
+                                        Rect.fromLTRB(
+                                            0, 0, rect.width, rect.height),
+                                      );
+                                    },
+                                    blendMode: BlendMode.dstOver,
+                                    child: const Text(
+                                      '#For You',
+                                      style: TextStyle(
+                                        color: AppColor.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                    ).paddingOnly(
+                                      right: 10,
+                                      left: 15,
+                                      top: 15,
+                                      bottom: 5,
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  left: 10,
+                                  child: SizedBox(
+                                    width: Get.width * 0.8,
+                                    child: Text(
+                                      controller.suggestedAnimeForYouData.value.title
+                                              ?.english ??
+                                          controller.suggestedAnimeForYouData
+                                              .value.title?.userPreferred ??
+                                          controller.suggestedAnimeForYouData
+                                              .value.title?.romaji ??
+                                          controller.suggestedAnimeForYouData
+                                              .value.title?.native ??
+                                          '',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        color: AppColor.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: ShaderMask(
-                              shaderCallback: (rect) {
-                                return LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Colors.white.withOpacity(0.15),
-                                    Colors.white.withOpacity(0.15),
-                                  ],
-                                  stops: const [0.0, 1.0],
-                                ).createShader(
-                                  Rect.fromLTRB(0, 0, rect.width, rect.height),
-                                );
+                        ).onTap(
+                          () {
+                            Get.toNamed(
+                              Routes.animeDetailsScreen,
+                              arguments: {
+                                'id': controller
+                                    .suggestedAnimeForYouData.value.id,
                               },
-                              blendMode: BlendMode.dstOver,
-                              child: const Text(
-                                '#For You',
-                                style: TextStyle(
-                                  color: AppColor.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ).paddingOnly(
-                                right: 10,
-                                left: 15,
-                                top: 15,
-                                bottom: 5,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            left: 10,
-                            child: SizedBox(
-                              width: Get.width * 0.8,
-                              child: Text(
-                                controller
-                                        .suggestedAnimeForYouData.value.title?.english ??
-                                    controller.suggestedAnimeForYouData.value
-                                        .title?.userPreferred ??
-                                    controller.suggestedAnimeForYouData.value
-                                        .title?.romaji ??
-                                    controller.suggestedAnimeForYouData.value
-                                        .title?.native ??
-                                    '',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: AppColor.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ).onTap(
-                    () {
-                      Get.toNamed(
-                        Routes.animeDetailsScreen,
-                        arguments: {
-                          'id': controller.suggestedAnimeForYouData.value.id,
-                        },
-                      );
-                    },
-                  ),
+                            );
+                          },
+                        ),
                   30.heightBox,
                   // --> Manga List
                   const Row(
@@ -847,33 +953,58 @@ class HomeScreen extends GetView<HomeScreenController> {
                       itemCount: controller.mangaList.length,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          width: Get.width * 0.25,
+                          width: Get.width * 0.36,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                child: ImageHelper(
-                                  imagePath:
-                                      controller.mangaList[index].image ?? '',
-                                  height: Get.height * 0.22,
-                                  width: Get.width * 0.25,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              10.heightBox,
-                              Text(
-                                controller.mangaList[index].title ?? '',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: AppColor.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                              Stack(
+                                children: [
+                                  ShaderMask(
+                                    shaderCallback: (rect) {
+                                      return AppColor.getStartedGradient
+                                          .createShader(
+                                        Rect.fromLTRB(
+                                          0,
+                                          0,
+                                          Get.width,
+                                          rect.height,
+                                        ),
+                                      );
+                                    },
+                                    blendMode: BlendMode.dstOut,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                      child: ImageHelper(
+                                        imagePath:
+                                            controller.mangaList[index].image ??
+                                                '',
+                                        height: Get.height * 0.3,
+                                        width: Get.width * 0.36,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 10,
+                                    left: 5,
+                                    child: SizedBox(
+                                      width: Get.width * 0.3,
+                                      child: Text(
+                                        controller.mangaList[index].title ?? '',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          color: AppColor.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otakuclub/app/core/constants/app_colors.dart';
 import 'package:otakuclub/app/core/constants/app_images.dart';
+import 'package:otakuclub/app/core/utils/extensions.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ImageHelper extends StatelessWidget {
@@ -129,24 +130,45 @@ class ImageHelper extends StatelessWidget {
 
   Widget _getShimmerPlaceholder() {
     return Shimmer.fromColors(
-      baseColor: Colors.grey[600]!,
-      highlightColor: Colors.grey[300]!,
+      baseColor: AppColor.grey800,
+      highlightColor: AppColor.grey700,
       child: Container(
         height: height,
         width: width,
-        color: Colors.white,
+        color: AppColor.grey900,
       ),
     );
   }
 
   Widget _getErrorImage() {
     return AppImages.brokenImageIcon != ''
-        ? Image.asset(
-            AppImages.brokenImageIcon,
+        ? SizedBox(
             height: height,
             width: width,
-            fit: fit,
-            color: AppColor.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: Image.asset(
+                    AppImages.brokenImageIcon,
+                    height: 40,
+                    width: 40,
+                    fit: fit,
+                    color: AppColor.white,
+                  ),
+                ),
+                5.heightBox,
+                const Text(
+                  'Image is broken :(',
+                  style: TextStyle(
+                    color: AppColor.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
           )
         : const Icon(
             Icons.error,

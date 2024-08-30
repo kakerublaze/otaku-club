@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:otakuclub/app/data/models/airing_schedule_response_model.dart';
@@ -8,7 +7,6 @@ import 'package:otakuclub/app/data/models/recent_anime_episode_response_model.da
 import 'package:otakuclub/app/data/models/suggested_anime_for_you_response_model.dart';
 import 'package:otakuclub/app/data/models/trending_anime_response_model.dart';
 import 'package:otakuclub/app/data/services/rest_services.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomeScreenController extends GetxController {
   Rx<int> currentIndex = 0.obs;
@@ -132,7 +130,7 @@ class HomeScreenController extends GetxController {
 
   // --> Get Recent Anime Episode
   Future<void> getRecentEpisodeData() async {
-    try {} catch (e) {
+    try {
       loadingStates['recentEpisode'] = true;
       var recentAnimeEpisodeList = await restService.recentAnimeEpisode(
         queryParameter: {
@@ -147,6 +145,7 @@ class HomeScreenController extends GetxController {
           recentAnimeEpisodeList.recentEpisodeData ?? [],
         );
       }
+    } catch (e) {
       logger.e(e);
       loadingStates['recentEpisode'] = false;
     } finally {
@@ -179,22 +178,5 @@ class HomeScreenController extends GetxController {
     getSuggestedAnimeForYouData();
     getMangaList();
     super.onInit();
-  }
-
-  Widget getShimmerPlaceholder({
-    double? height,
-    double? width,
-    Widget? child,
-  }) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[600]!,
-      highlightColor: Colors.grey[300]!,
-      child: Container(
-        height: height,
-        width: width,
-        color: Colors.white,
-        child: child,
-      ),
-    );
   }
 }
