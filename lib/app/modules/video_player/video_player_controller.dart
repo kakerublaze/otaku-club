@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:otakuclub/app/data/models/anime_details_data_response_model.dart';
 import 'package:otakuclub/app/data/models/anime_streaming_data_response_model.dart';
 import 'package:otakuclub/app/data/services/rest_services.dart';
+import 'package:palette_generator/palette_generator.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -15,9 +16,13 @@ class VideoPlayerController extends GetxController {
   Rx<BetterPlayerController?> betterPlayerController =
       Rx<BetterPlayerController?>(null);
   Episodes episodeData = Episodes();
+  List<Episodes> episodeDataList = [];
+  List<Recommendations> recommendationsList = [];
   Map<String, dynamic> getArguments = {};
   AnimeStreamingDataResponseModel animeStreamingData =
       AnimeStreamingDataResponseModel();
+
+  PaletteGenerator? palette;
   // --> Get AnimeStreaming Data
   Future<void> getAnimeStreamingData(String id) async {
     animeStreamingData = await restService.animeStreamingData(
@@ -63,6 +68,13 @@ class VideoPlayerController extends GetxController {
     );
   }
 
+  Future<void> colorGenerator(String url) async {
+    final PaletteGenerator generator = await PaletteGenerator.fromImageProvider(
+      NetworkImage(url),
+    );
+    palette = generator;
+  }
+
   @override
   void onInit() async {
     getArguments = Get.arguments;
@@ -70,6 +82,9 @@ class VideoPlayerController extends GetxController {
       getArguments['id'],
     );
     episodeData = getArguments['data'];
+    episodeDataList = getArguments['episodes'];
+    recommendationsList = getArguments['recommendations'] ?? [];
+    await colorGenerator('${episodeData.image}');
     BetterPlayerConfiguration betterPlayerConfiguration =
         const BetterPlayerConfiguration(
       aspectRatio: 16 / 9,

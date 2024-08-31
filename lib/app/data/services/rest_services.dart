@@ -58,7 +58,7 @@ class RestService {
         body: body,
       ).timeout(
         const Duration(
-          seconds: 10,
+          seconds: 180,
         ),
       );
       debugPrint(url.toString());

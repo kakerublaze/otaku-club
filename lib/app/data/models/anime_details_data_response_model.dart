@@ -575,11 +575,11 @@ class Artwork {
 class Episodes {
   String? id;
   String? title;
-  Null description;
+  String? description;
   int? number;
   String? image;
   String? imageHash;
-  Null airDate;
+  String? airDate;
 
   Episodes(
       {this.id,

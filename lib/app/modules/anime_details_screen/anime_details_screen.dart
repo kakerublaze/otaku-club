@@ -643,6 +643,10 @@ class AnimeDetailsPage extends StatelessWidget {
                                       '',
                                   'data': controller
                                       .animeDataModel.value.episodes?[index],
+                                  'episodes':
+                                      controller.animeDataModel.value.episodes,
+                                  'recommendation': controller
+                                      .animeDataModel.value.recommendations,
                                   'name':
                                       '${(controller.animeDataModel.value.title?.english ?? controller.animeDataModel.value.title?.native ?? controller.animeDataModel.value.title?.romaji ?? controller.animeDataModel.value.title?.userPreferred)}',
                                 },

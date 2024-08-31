@@ -65,7 +65,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                         ),
                                         child: ShaderMask(
                                           shaderCallback: (rect) {
-                                            return AppColor.getStartedGradient
+                                            return AppColor.cardsGradientColor
                                                 .createShader(
                                               Rect.fromLTRB(
                                                 0,

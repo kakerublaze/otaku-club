@@ -98,4 +98,14 @@ class AppColor {
     ],
     stops: [0.0, 0.9],
   );
+  // --> Cards Gradient Color
+  static LinearGradient cardsGradientColor = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      AppColor.transparent, // Start fading to transparent
+      AppColor.black12.withOpacity(0.1), // Bottom: Blackish with opacity
+    ],
+    stops: const [0.2, 0.9],
+  );
 }
