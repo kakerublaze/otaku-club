@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otakuclub/app/core/constants/app_colors.dart';
@@ -42,17 +43,18 @@ class ImageHelper extends StatelessWidget {
         path.startsWith('https') ||
         path.startsWith('www')) {
       // Network Image
-      return Image.network(
-        path,
+      return CachedNetworkImage(
+        imageUrl: path,
         height: height,
         width: width,
         fit: fit,
         color: color,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return _getShimmerPlaceholder();
-        },
-        errorBuilder: (context, error, stackTrace) {
+        // progressIndicatorBuilder: (context, child, loadingProgress) {
+        //   if (loadingProgress.downloaded == loadingProgress.totalSize) return;
+        //   return _getShimmerPlaceholder();
+        // },
+        placeholder: (context, url) => _getShimmerPlaceholder(),
+        errorWidget: (context, error, stackTrace) {
           return _getErrorImage();
         },
       );

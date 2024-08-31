@@ -10,9 +10,13 @@ class AnimeScreenController extends GetxController {
   final ScrollController scrollController = ScrollController();
   RestService restService = RestService();
   RxList<PopularAnimeData> popularAnimeList = <PopularAnimeData>[].obs;
+  Rx<bool> isLoadingData = false.obs;
 
   // --> Get Popular Anime
   Future<void> getPopularAnimeData() async {
+    if (pageIndex.value == 1) {
+      isLoadingData.value = true;
+    }
     var popularAnimeData = await restService.popularAnime(
       queryParameter: {
         'page': pageIndex.toString(),
@@ -25,6 +29,7 @@ class AnimeScreenController extends GetxController {
         popularAnimeData.popularAnimeData ?? [],
       );
     }
+    if (pageIndex.value == 1) isLoadingData.value = false;
     popularAnimeList.refresh();
   }
 
@@ -39,8 +44,8 @@ class AnimeScreenController extends GetxController {
     if (isLoading.value) return;
 
     isLoading.value = true;
-    pageIndex.value++; 
-    await getPopularAnimeData(); 
+    pageIndex.value++;
+    await getPopularAnimeData();
     isLoading.value = false;
   }
 

@@ -7,12 +7,16 @@ class MangaController extends GetxController {
   int perPageCount = 30;
   Rx<int> pageIndex = 1.obs;
   var isLoading = false.obs;
+  Rx<bool> isLoadingData = false.obs;
   final ScrollController scrollController = ScrollController();
   RestService restService = RestService();
   RxList<MangaList> latestMangaList = <MangaList>[].obs;
 
   // --> Get Latest Manga
   Future<void> getLatestMangaData() async {
+    if (pageIndex.value == 1) {
+      isLoadingData.value = true;
+    }
     var latestMangaData = await restService.mangaList(
       queryParameter: {
         'page': pageIndex.toString(),
@@ -24,6 +28,9 @@ class MangaController extends GetxController {
       latestMangaList.addAll(
         latestMangaData.mangaList ?? [],
       );
+    }
+    if (pageIndex.value == 1) {
+      isLoadingData.value = false;
     }
     latestMangaList.refresh();
   }

@@ -559,7 +559,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                       children: [
                                         ShaderMask(
                                           shaderCallback: (rect) {
-                                            return AppColor.getStartedGradient
+                                            return AppColor.cardsGradientColor
                                                 .createShader(
                                               Rect.fromLTRB(
                                                 0,
@@ -663,7 +663,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                       children: [
                                         ShaderMask(
                                           shaderCallback: (rect) {
-                                            return AppColor.getStartedGradient
+                                            return AppColor.cardsGradientColor
                                                 .createShader(
                                               Rect.fromLTRB(
                                                 0,
@@ -760,7 +760,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                               children: [
                                 ShaderMask(
                                   shaderCallback: (rect) {
-                                    return AppColor.getStartedGradient
+                                    return AppColor.cardsGradientColor
                                         .createShader(
                                       Rect.fromLTRB(
                                         0,
@@ -881,7 +881,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                       children: [
                                         ShaderMask(
                                           shaderCallback: (rect) {
-                                            return AppColor.getStartedGradient
+                                            return AppColor.cardsGradientColor
                                                 .createShader(
                                               Rect.fromLTRB(
                                                 0,

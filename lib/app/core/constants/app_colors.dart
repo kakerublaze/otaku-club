@@ -104,8 +104,8 @@ class AppColor {
     end: Alignment.bottomCenter,
     colors: [
       AppColor.transparent, // Start fading to transparent
-      AppColor.black12.withOpacity(0.1), // Bottom: Blackish with opacity
+      AppColor.black12.withOpacity(0.7), // Bottom: Blackish with opacity
     ],
-    stops: const [0.2, 0.9],
+    stops: const [0.0, 0.9],
   );
 }
