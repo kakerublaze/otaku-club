@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:otakuclub/app/data/models/anime_details_data_response_model.dart';
 import 'package:otakuclub/app/data/services/rest_services.dart';
 
 class AnimeDetailsPageController extends GetxController {
   Map<String, dynamic> getArguments = {};
-  var isLoading = false.obs;
-
+  RxBool isLoading = false.obs;
+  var logger = Logger();
   final ScrollController scrollController = ScrollController();
   RestService restService = RestService();
   Rx<AnimeDetailsDataResponseModel> animeDataModel =
@@ -17,13 +18,20 @@ class AnimeDetailsPageController extends GetxController {
 
   // --> Get Latest Manga
   Future<void> animeDetailsData(String id) async {
-    animeDataModel.value = await restService.animeDetailsData(
-      queryParameter: {
-        'provider': 'gogoanime',
-      },
-      id: id.toString(),
-    );
-    animeDataModel.refresh();
+    isLoading.value = true;
+    try {
+      animeDataModel.value = await restService.animeDetailsData(
+        queryParameter: {
+          'provider': 'gogoanime',
+        },
+        id: id.toString(),
+      );
+      animeDataModel.refresh();
+    } catch (e) {
+      logger.e(e);
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   // --> Remove HTMl Tags
