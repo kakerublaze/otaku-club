@@ -176,7 +176,7 @@ class HomeScreenController extends GetxController {
     getPopularAnimeData();
     getRecentEpisodeData();
     getSuggestedAnimeForYouData();
-    getMangaList();
+    // getMangaList();
     super.onInit();
   }
 }

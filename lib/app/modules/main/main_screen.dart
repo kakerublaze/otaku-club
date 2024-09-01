@@ -42,15 +42,23 @@ class MainScreen extends GetView<MainScreenController> {
                           ? const Text('Anime')
                           : controller.selectedIndex.value == 2
                               ? const Text('Explore')
-                              : controller.selectedIndex.value == 3
-                                  ? const Text('Manga')
-                                  : const Text('Profile'),
+                              // : controller.selectedIndex.value == 3
+                              //     ? const Text('Manga')
+                              : const Text('Profile'),
                   titleTextStyle: const TextStyle(
                     color: AppColor.white,
                     fontSize: 24,
                     fontWeight: FontWeight.w800,
                   ),
                   actions: [
+                    if (controller.selectedIndex.value != 2)
+                      const Icon(
+                        Icons.search,
+                        weight: 800,
+                        size: 24,
+                        color: AppColor.white,
+                      ),
+                    20.widthBox,
                     const ImageHelper(
                       imagePath: AppImages.chatIcon,
                       height: 20,
@@ -240,46 +248,47 @@ class MainScreen extends GetView<MainScreenController> {
                                     ),
                               label: 'Explore',
                             ),
+                            // Manga is Hide --> Remember to change index of given below tab
+                            // BottomNavigationBarItem(
+                            //   icon: controller.selectedIndex.value == 3
+                            //       ? Container(
+                            //           decoration: BoxDecoration(
+                            //             color: AppColor.white30,
+                            //             borderRadius: BorderRadius.circular(
+                            //               30,
+                            //             ),
+                            //           ),
+                            //           padding: const EdgeInsets.only(
+                            //             top: 5,
+                            //             bottom: 5,
+                            //             right: 20,
+                            //             left: 20,
+                            //           ),
+                            //           child: Image.asset(
+                            //             AppImages.mangaSelected,
+                            //             width: 24,
+                            //             height: 24,
+                            //             color: Colors.white,
+                            //           ),
+                            //         )
+                            //       : Container(
+                            //           padding: const EdgeInsets.only(
+                            //             top: 5,
+                            //             bottom: 5,
+                            //             right: 20,
+                            //             left: 20,
+                            //           ),
+                            //           child: Image.asset(
+                            //             AppImages.manga,
+                            //             width: 24,
+                            //             height: 24,
+                            //             color: AppColor.white,
+                            //           ),
+                            //         ),
+                            //   label: 'Manga',
+                            // ),
                             BottomNavigationBarItem(
                               icon: controller.selectedIndex.value == 3
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                        color: AppColor.white30,
-                                        borderRadius: BorderRadius.circular(
-                                          30,
-                                        ),
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                        top: 5,
-                                        bottom: 5,
-                                        right: 20,
-                                        left: 20,
-                                      ),
-                                      child: Image.asset(
-                                        AppImages.mangaSelected,
-                                        width: 24,
-                                        height: 24,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  : Container(
-                                      padding: const EdgeInsets.only(
-                                        top: 5,
-                                        bottom: 5,
-                                        right: 20,
-                                        left: 20,
-                                      ),
-                                      child: Image.asset(
-                                        AppImages.manga,
-                                        width: 24,
-                                        height: 24,
-                                        color: AppColor.white,
-                                      ),
-                                    ),
-                              label: 'Manga',
-                            ),
-                            BottomNavigationBarItem(
-                              icon: controller.selectedIndex.value == 4
                                   ? Container(
                                       decoration: BoxDecoration(
                                         color: AppColor.white30,

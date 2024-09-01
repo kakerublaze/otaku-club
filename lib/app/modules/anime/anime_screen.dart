@@ -27,6 +27,7 @@ class AnimeScreen extends StatelessWidget {
                           right: 10,
                           left: 10,
                         ),
+                        shrinkWrap: true,
                         controller: controller.scrollController,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
