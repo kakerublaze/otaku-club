@@ -390,149 +390,177 @@ class HomeScreen extends GetView<HomeScreenController> {
                   10.heightBox,
                   controller.loadingStates['recentEpisode'] == true
                       ? getHomeAiringSoonShimmer()
-                      : SizedBox(
-                          width: Get.width,
-                          height: Get.height * 0.15,
-                          child: ListView.builder(
-                            itemCount: controller.recentEpisodeDataList.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                width: Get.width * 0.75,
-                                decoration: BoxDecoration(
-                                  color: AppColor.white30,
-                                  borderRadius: BorderRadius.circular(
-                                    10,
+                      : controller.recentEpisodeDataList.isEmpty
+                          ? Center(
+                              child: Container(
+                                padding: const EdgeInsets.only(
+                                  top: 10,
+                                  bottom: 10,
+                                ),
+                                decoration: const BoxDecoration(),
+                                child: const Text(
+                                  'Please Wait Till Dev Fix This :(\nOr Try Refreshing App',
+                                  style: TextStyle(
+                                    color: AppColor.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w800,
                                   ),
                                 ),
-                                margin: const EdgeInsets.only(
-                                  right: 15,
-                                ),
-                                child: Row(
-                                  children: [
-                                    ClipRRect(
+                              ),
+                            )
+                          : SizedBox(
+                              width: Get.width,
+                              height: Get.height * 0.15,
+                              child: ListView.builder(
+                                itemCount:
+                                    controller.recentEpisodeDataList.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    width: Get.width * 0.75,
+                                    decoration: BoxDecoration(
+                                      color: AppColor.white30,
                                       borderRadius: BorderRadius.circular(
                                         10,
                                       ),
-                                      child: ImageHelper(
-                                        imagePath: controller
-                                                .recentEpisodeDataList[index]
-                                                .image ??
-                                            '',
-                                        height: Get.height * 0.15,
-                                        width: Get.width * 0.25,
-                                        fit: BoxFit.fill,
-                                      ),
                                     ),
-                                    SizedBox(
-                                      width: Get.width * 0.45,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              controller
-                                                      .recentEpisodeDataList[
-                                                          index]
-                                                      .title
-                                                      ?.english ??
-                                                  controller
-                                                      .recentEpisodeDataList[
-                                                          index]
-                                                      .title
-                                                      ?.romaji ??
-                                                  controller
-                                                      .recentEpisodeDataList[
-                                                          index]
-                                                      .title
-                                                      ?.native ??
-                                                  'N/A',
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                              style: const TextStyle(
-                                                color: AppColor.white,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
+                                    margin: const EdgeInsets.only(
+                                      right: 15,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            10,
                                           ),
-                                          10.heightBox,
-                                          Text(
-                                            'Episode : ${controller.recentEpisodeDataList[index].episodeNumber}',
-                                            style: const TextStyle(
-                                              color: AppColor.white70,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w700,
-                                            ),
+                                          child: ImageHelper(
+                                            imagePath: controller
+                                                    .recentEpisodeDataList[
+                                                        index]
+                                                    .image ??
+                                                '',
+                                            height: Get.height * 0.15,
+                                            width: Get.width * 0.25,
+                                            fit: BoxFit.fill,
                                           ),
-                                          5.heightBox,
-                                          RichText(
-                                            textAlign: TextAlign.center,
-                                            text: TextSpan(
-                                              children: [
-                                                const TextSpan(
-                                                  text: 'Type: ',
-                                                  style: TextStyle(
-                                                    color: AppColor.white70,
-                                                    fontSize: 14,
+                                        ),
+                                        SizedBox(
+                                          width: Get.width * 0.45,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  controller
+                                                          .recentEpisodeDataList[
+                                                              index]
+                                                          .title
+                                                          ?.english ??
+                                                      controller
+                                                          .recentEpisodeDataList[
+                                                              index]
+                                                          .title
+                                                          ?.romaji ??
+                                                      controller
+                                                          .recentEpisodeDataList[
+                                                              index]
+                                                          .title
+                                                          ?.native ??
+                                                      'N/A',
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 2,
+                                                  style: const TextStyle(
+                                                    color: AppColor.white,
+                                                    fontSize: 16,
                                                     fontWeight: FontWeight.w700,
                                                   ),
                                                 ),
-                                                WidgetSpan(
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      left: 20,
-                                                      right: 20,
-                                                      top: 1,
-                                                      bottom: 1,
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                      color: AppColor.blueAccent
-                                                          .withOpacity(0.6),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                        10,
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      controller
-                                                                  .recentEpisodeDataList[
-                                                                      index]
-                                                                  .type !=
-                                                              null
-                                                          ? '${controller.recentEpisodeDataList[index].type}'
-                                                          : 'N/A',
-                                                      style: const TextStyle(
+                                              ),
+                                              10.heightBox,
+                                              Text(
+                                                'Episode : ${controller.recentEpisodeDataList[index].episodeNumber}',
+                                                style: const TextStyle(
+                                                  color: AppColor.white70,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                              5.heightBox,
+                                              RichText(
+                                                textAlign: TextAlign.center,
+                                                text: TextSpan(
+                                                  children: [
+                                                    const TextSpan(
+                                                      text: 'Type: ',
+                                                      style: TextStyle(
                                                         color: AppColor.white70,
-                                                        fontSize: 12,
+                                                        fontSize: 14,
                                                         fontWeight:
                                                             FontWeight.w700,
                                                       ),
                                                     ),
-                                                  ),
+                                                    WidgetSpan(
+                                                      child: Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                          left: 20,
+                                                          right: 20,
+                                                          top: 1,
+                                                          bottom: 1,
+                                                        ),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: AppColor
+                                                              .blueAccent
+                                                              .withOpacity(0.6),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                            10,
+                                                          ),
+                                                        ),
+                                                        child: Text(
+                                                          controller
+                                                                      .recentEpisodeDataList[
+                                                                          index]
+                                                                      .type !=
+                                                                  null
+                                                              ? '${controller.recentEpisodeDataList[index].type}'
+                                                              : 'N/A',
+                                                          style:
+                                                              const TextStyle(
+                                                            color: AppColor
+                                                                .white70,
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
+                                          ).paddingOnly(
+                                            top: 10,
+                                            left: 15,
+                                            right: 10,
+                                            bottom: 10,
                                           ),
-                                        ],
-                                      ).paddingOnly(
-                                        top: 10,
-                                        left: 15,
-                                        right: 10,
-                                        bottom: 10,
-                                      ),
+                                        ),
+                                        10.widthBox,
+                                      ],
                                     ),
-                                    10.widthBox,
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ),
+                                  );
+                                },
+                              ),
+                            ),
                   20.heightBox,
                   // Trending Now
                   getHeaderWidget(
@@ -857,84 +885,84 @@ class HomeScreen extends GetView<HomeScreenController> {
                         ),
                   30.heightBox,
                   // --> Manga List
-                  getHeaderWidget(
-                    title: 'Latest Manga',
-                    onTap: () {},
-                  ),
-                  10.heightBox,
-                  controller.loadingStates['manga'] == true
-                      ? getHomeCardShimmer()
-                      : SizedBox(
-                          height: Get.height * 0.32,
-                          width: Get.width,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: controller.mangaList.length,
-                            itemBuilder: (context, index) {
-                              return SizedBox(
-                                width: Get.width * 0.36,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        ShaderMask(
-                                          shaderCallback: (rect) {
-                                            return AppColor.cardsGradientColor
-                                                .createShader(
-                                              Rect.fromLTRB(
-                                                0,
-                                                0,
-                                                Get.width,
-                                                rect.height,
-                                              ),
-                                            );
-                                          },
-                                          blendMode: BlendMode.dstOut,
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                              10,
-                                            ),
-                                            child: ImageHelper(
-                                              imagePath: controller
-                                                      .mangaList[index].image ??
-                                                  '',
-                                              height: Get.height * 0.3,
-                                              width: Get.width * 0.36,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: 10,
-                                          left: 5,
-                                          child: SizedBox(
-                                            width: Get.width * 0.3,
-                                            child: Text(
-                                              controller
-                                                      .mangaList[index].title ??
-                                                  '',
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                color: AppColor.white,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ).paddingOnly(
-                                right: 20,
-                              );
-                            },
-                          ),
-                        ),
+                  // getHeaderWidget(
+                  //   title: 'Latest Manga',
+                  //   onTap: () {},
+                  // ),
+                  // 10.heightBox,
+                  // controller.loadingStates['manga'] == true
+                  //     ? getHomeCardShimmer()
+                  //     : SizedBox(
+                  //         height: Get.height * 0.32,
+                  //         width: Get.width,
+                  //         child: ListView.builder(
+                  //           scrollDirection: Axis.horizontal,
+                  //           itemCount: controller.mangaList.length,
+                  //           itemBuilder: (context, index) {
+                  //             return SizedBox(
+                  //               width: Get.width * 0.36,
+                  //               child: Column(
+                  //                 mainAxisAlignment: MainAxisAlignment.start,
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: [
+                  //                   Stack(
+                  //                     children: [
+                  //                       ShaderMask(
+                  //                         shaderCallback: (rect) {
+                  //                           return AppColor.cardsGradientColor
+                  //                               .createShader(
+                  //                             Rect.fromLTRB(
+                  //                               0,
+                  //                               0,
+                  //                               Get.width,
+                  //                               rect.height,
+                  //                             ),
+                  //                           );
+                  //                         },
+                  //                         blendMode: BlendMode.dstOut,
+                  //                         child: ClipRRect(
+                  //                           borderRadius: BorderRadius.circular(
+                  //                             10,
+                  //                           ),
+                  //                           child: ImageHelper(
+                  //                             imagePath: controller
+                  //                                     .mangaList[index].image ??
+                  //                                 '',
+                  //                             height: Get.height * 0.3,
+                  //                             width: Get.width * 0.36,
+                  //                             fit: BoxFit.fill,
+                  //                           ),
+                  //                         ),
+                  //                       ),
+                  //                       Positioned(
+                  //                         bottom: 10,
+                  //                         left: 5,
+                  //                         child: SizedBox(
+                  //                           width: Get.width * 0.3,
+                  //                           child: Text(
+                  //                             controller
+                  //                                     .mangaList[index].title ??
+                  //                                 '',
+                  //                             maxLines: 2,
+                  //                             overflow: TextOverflow.ellipsis,
+                  //                             style: const TextStyle(
+                  //                               color: AppColor.white,
+                  //                               fontSize: 14,
+                  //                               fontWeight: FontWeight.w700,
+                  //                             ),
+                  //                           ),
+                  //                         ),
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ).paddingOnly(
+                  //               right: 20,
+                  //             );
+                  //           },
+                  //         ),
+                  //       ),
                   80.heightBox,
                 ],
               ).paddingOnly(

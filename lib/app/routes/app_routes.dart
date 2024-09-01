@@ -9,4 +9,5 @@ abstract class Routes {
   static const animeDetailsScreen = '/animeDetailsScreen';
   static const videoPlayer = '/videoPlayer';
   static const downloadAnime = '/downloadAnime';
+  static const explore = '/explore';
 }
