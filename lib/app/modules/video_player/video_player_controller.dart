@@ -21,13 +21,16 @@ class VideoPlayerController extends GetxController {
   Map<String, dynamic> getArguments = {};
   AnimeStreamingDataResponseModel animeStreamingData =
       AnimeStreamingDataResponseModel();
+  RxBool isLoading = false.obs;
 
   PaletteGenerator? palette;
   // --> Get AnimeStreaming Data
   Future<void> getAnimeStreamingData(String id) async {
+    isLoading.value = true;
     animeStreamingData = await restService.animeStreamingData(
       id: id,
     );
+    isLoading.value = false;
   }
 
   Future<void> requestPermissions() async {
