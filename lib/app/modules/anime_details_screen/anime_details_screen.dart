@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:otakuclub/app/core/constants/app_colors.dart';
 import 'package:otakuclub/app/core/constants/app_images.dart';
 import 'package:otakuclub/app/core/utils/extensions.dart';
@@ -57,8 +58,9 @@ class AnimeDetailsPage extends StatelessWidget {
               : null,
           body: controller.isLoading()
               ? const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColor.white,
+                  child: SpinKitHourGlass(
+                    color: Colors.white,
+                    size: 50.0,
                   ),
                 )
               : Container(
