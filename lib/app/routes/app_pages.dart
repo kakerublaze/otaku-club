@@ -12,10 +12,13 @@ import 'package:otakuclub/app/modules/main/main_screen.dart';
 import 'package:otakuclub/app/modules/main/main_screen_binding.dart';
 import 'package:otakuclub/app/modules/manga/manga_screen.dart';
 import 'package:otakuclub/app/modules/manga/manga_screen_binding.dart';
+import 'package:otakuclub/app/modules/profile/profile_screen_binding.dart';
 import 'package:otakuclub/app/modules/splash_screen/splash_screen.dart';
 import 'package:otakuclub/app/modules/splash_screen/splash_screen_binding.dart';
 import 'package:otakuclub/app/modules/video_player/video_player_binding.dart';
 import 'package:otakuclub/app/modules/video_player/video_player_screen.dart';
+
+import '../modules/profile/profile_screen.dart';
 
 part 'app_routes.dart';
 
@@ -67,6 +70,11 @@ class AppPages {
       name: Routes.explore,
       page: () => const ExploreScreen(),
       binding: ExploreBindings(),
+    ),
+    GetPage(
+      name: Routes.profile,
+      page: () => const ProfileScreen(),
+      binding: ProfileBinding(),
     ),
   ];
 }

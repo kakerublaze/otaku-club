@@ -16,6 +16,7 @@ class MainScreen extends GetView<MainScreenController> {
     return Obx(
       () {
         return Scaffold(
+          key: controller.key,
           extendBodyBehindAppBar: true,
           extendBody: true,
           // backgroundColor: AppColor.transparent,
@@ -44,14 +45,15 @@ class MainScreen extends GetView<MainScreenController> {
                               ? const Text('Explore')
                               // : controller.selectedIndex.value == 3
                               //     ? const Text('Manga')
-                              : const Text('Profile'),
+                              : const Text('Username'),
                   titleTextStyle: const TextStyle(
                     color: AppColor.white,
                     fontSize: 24,
                     fontWeight: FontWeight.w800,
                   ),
                   actions: [
-                    if (controller.selectedIndex.value != 2)
+                    if (controller.selectedIndex.value != 2 &&
+                        controller.selectedIndex.value != 3)
                       const Icon(
                         Icons.search,
                         weight: 800,
@@ -59,17 +61,28 @@ class MainScreen extends GetView<MainScreenController> {
                         color: AppColor.white,
                       ),
                     20.widthBox,
-                    const ImageHelper(
-                      imagePath: AppImages.chatIcon,
-                      height: 20,
-                      width: 20,
-                      fit: BoxFit.contain,
-                      color: AppColor.white,
-                    ).onTap(
-                      () {
-                        // Chat Section Redirect
-                      },
-                    ),
+                    controller.selectedIndex.value == 3
+                        ? IconButton(
+                            icon: const Icon(
+                              Icons.menu,
+                              color: AppColor.white,
+                              size: 30,
+                            ),
+                            onPressed: () {
+                              controller.key.currentState!.openEndDrawer();
+                            },
+                          )
+                        : const ImageHelper(
+                            imagePath: AppImages.chatIcon,
+                            height: 20,
+                            width: 20,
+                            fit: BoxFit.contain,
+                            color: AppColor.white,
+                          ).onTap(
+                            () {
+                              // Chat Section Redirect
+                            },
+                          ),
                     10.widthBox,
                   ],
                 ),
@@ -333,6 +346,59 @@ class MainScreen extends GetView<MainScreenController> {
                 ],
               ),
             ],
+          ),
+          endDrawer: Drawer(
+            child: Column(
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: AppColor.black,
+                  ), //BoxDecoration
+                  child: UserAccountsDrawerHeader(
+                    decoration: BoxDecoration(color: AppColor.black),
+                    accountName: Text(
+                      "\nAbhishek Mishra",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    accountEmail: Text("abhishekm977@gmail.com"),
+                    currentAccountPictureSize: Size.square(50),
+                    currentAccountPicture: CircleAvatar(
+                      backgroundColor: Color.fromARGB(255, 165, 255, 137),
+                      child: Text(
+                        "A",
+                        style: TextStyle(
+                          fontSize: 30.0,
+                          color: AppColor.white,
+                        ),
+                      ), //Text
+                    ), //circleAvatar
+                  ), //UserAccountDrawerHeader
+                ), //Dra
+                // werHeader
+                ListTile(
+                  leading: const Icon(Icons.edit),
+                  title: const Text('Edit Profile'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.logout,
+                    color: AppColor.red,
+                  ),
+                  title: const Text(
+                    'LogOut',
+                    style: TextStyle(
+                      color: AppColor.red,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ),
         );
       },
