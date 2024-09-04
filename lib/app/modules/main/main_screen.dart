@@ -385,12 +385,12 @@ class MainScreen extends GetView<MainScreenController> {
                 ListTile(
                   leading: const Icon(
                     Icons.logout,
-                    color: AppColor.red,
+                    color: AppColor.white,
                   ),
                   title: const Text(
                     'LogOut',
                     style: TextStyle(
-                      color: AppColor.red,
+                      color: AppColor.white,
                     ),
                   ),
                   onTap: () {
