@@ -8,6 +8,8 @@ import 'package:otakuclub/app/core/utils/extensions.dart';
 import 'package:otakuclub/app/core/utils/helpers/image_helper.dart';
 import 'package:otakuclub/app/modules/main/main_screen_controller.dart';
 
+import '../../routes/app_pages.dart';
+
 class MainScreen extends GetView<MainScreenController> {
   const MainScreen({super.key});
 
@@ -352,10 +354,10 @@ class MainScreen extends GetView<MainScreenController> {
               children: [
                 const DrawerHeader(
                   decoration: BoxDecoration(
-                    color: AppColor.black,
+                    color: AppColor.grey,
                   ), //BoxDecoration
                   child: UserAccountsDrawerHeader(
-                    decoration: BoxDecoration(color: AppColor.black),
+                    decoration: BoxDecoration(color: AppColor.grey),
                     accountName: Text(
                       "\nAbhishek Mishra",
                       style: TextStyle(fontSize: 18),
@@ -380,17 +382,18 @@ class MainScreen extends GetView<MainScreenController> {
                   title: const Text('Edit Profile'),
                   onTap: () {
                     Navigator.pop(context);
+                    Get.toNamed(Routes.editProfile);
                   },
                 ),
                 ListTile(
                   leading: const Icon(
                     Icons.logout,
-                    color: AppColor.white,
+                    color: AppColor.red,
                   ),
                   title: const Text(
                     'LogOut',
                     style: TextStyle(
-                      color: AppColor.white,
+                      color: AppColor.red,
                     ),
                   ),
                   onTap: () {

@@ -113,6 +113,33 @@ class ProfileScreen extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
             ),
+            20.heightBox,
+            Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: AppColor.white,
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.add,
+                    color: AppColor.white,
+                    size: 30,
+                  ),
+                ),
+                const Text(
+                  'New',
+                  style: TextStyle(
+                    color: AppColor.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                )
+              ],
+            ),
             40.heightBox,
             const Text(
               'Posts:',
@@ -125,6 +152,7 @@ class ProfileScreen extends StatelessWidget {
             15.heightBox,
             Expanded(
               child: GridView.builder(
+                padding: const EdgeInsets.only(bottom: 70),
                 itemCount: 15,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
@@ -139,7 +167,7 @@ class ProfileScreen extends StatelessWidget {
                   );
                 },
               ),
-            )
+            ),
           ],
         ).paddingAll(20),
       ),

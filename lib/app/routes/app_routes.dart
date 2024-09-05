@@ -11,4 +11,5 @@ abstract class Routes {
   static const downloadAnime = '/downloadAnime';
   static const explore = '/explore';
   static const profile = '/profile';
+  static const editProfile = '/editProfile';
 }
