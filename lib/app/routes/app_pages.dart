@@ -18,6 +18,7 @@ import 'package:otakuclub/app/modules/splash_screen/splash_screen_binding.dart';
 import 'package:otakuclub/app/modules/video_player/video_player_binding.dart';
 import 'package:otakuclub/app/modules/video_player/video_player_screen.dart';
 
+import '../modules/profile/edit_profile.dart';
 import '../modules/profile/profile_screen.dart';
 
 part 'app_routes.dart';
@@ -74,6 +75,11 @@ class AppPages {
     GetPage(
       name: Routes.profile,
       page: () => const ProfileScreen(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: Routes.editProfile,
+      page: () => const EditProfileScreen(),
       binding: ProfileBinding(),
     ),
   ];
