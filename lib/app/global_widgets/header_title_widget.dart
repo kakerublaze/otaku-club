@@ -24,6 +24,7 @@ Widget getHeaderWidget({
           Icons.arrow_forward,
           size: 26,
           color: AppColor.white,
+          weight: 800,
         ).onTap(
           () {
             onTap;
