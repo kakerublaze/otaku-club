@@ -1,7 +1,7 @@
-import 'package:otakuclub/app/core/utils/extensions.dart';
-import 'package:otakuclub/app/modules/profile/profile_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:otakuclub/app/core/utils/extensions.dart';
+import 'package:otakuclub/app/modules/profile/profile_screen_controller.dart';
 
 import '../../core/constants/app_colors.dart';
 

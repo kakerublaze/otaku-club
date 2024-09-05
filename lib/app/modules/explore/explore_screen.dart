@@ -98,7 +98,7 @@ class ExploreScreen extends StatelessWidget {
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
-                        color: AppColor.transparent,
+                        color: AppColor.grey800,
                         border: Border.all(
                           color: AppColor.white,
                           width: 2,
