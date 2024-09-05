@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:otakuclub/app/core/utils/extensions.dart';
-import 'package:otakuclub/app/modules/profile/profile_screen_controller.dart';
+
+// import 'package:otakuclub/app/modules/profile/profile_screen_controller.dart';
 
 import '../../core/constants/app_colors.dart';
 
@@ -10,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ProfileScreenController());
+    // final controller = Get.put(ProfileScreenController());
 
     return Scaffold(
       body: SafeArea(
