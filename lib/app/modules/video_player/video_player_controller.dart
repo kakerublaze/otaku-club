@@ -97,8 +97,8 @@ class VideoPlayerController extends GetxController {
     BetterPlayerDataSource dataSource = BetterPlayerDataSource(
       BetterPlayerDataSourceType.network,
       animeStreamingData.sources?[0].url ?? '',
-      useAsmsSubtitles: true,
-      useAsmsTracks: true,
+      // useAsmsSubtitles: true,
+      // useAsmsTracks: true,
       videoFormat: BetterPlayerVideoFormat.hls,
       resolutions: {
         for (var source in animeStreamingData.sources ?? [])

@@ -91,12 +91,12 @@ class EditProfileScreen extends StatelessWidget {
       bottomNavigationBar: ElevatedButton(
         onPressed: () {},
         style: ButtonStyle(
-          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
             ),
           ),
-          fixedSize: WidgetStateProperty.all<Size>(
+          fixedSize: MaterialStateProperty.all<Size>(
             const Size(double.maxFinite, 50),
           ),
         ),
