@@ -40,9 +40,9 @@ dependencies:
   carousel_slider: ^5.0.0
   http: ^1.2.2
   intl: ^0.19.0
-  better_player: ^0.0.63
+  better_player: ^0.0.84
   marquee: ^2.2.3
-  webview_flutter: ^4.8.0
+  # webview_flutter: ^4.8.0
   url_launcher: ^6.3.0
   permission_handler: ^11.3.1
   flutter_downloader: ^1.11.8
@@ -51,7 +51,7 @@ dependencies:
   shimmer: ^3.0.0
   logger: ^2.4.0
   palette_generator: ^0.3.3+4
-  cached_network_image: ^3.3.1
+  cached_network_image: ^3.4.1
   flutter_spinkit: ^5.2.1
   image_picker: ^1.1.2
 
