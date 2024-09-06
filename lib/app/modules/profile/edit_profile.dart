@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:otakuclub/app/core/constants/app_colors.dart';
@@ -33,44 +35,57 @@ class EditProfileScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(20),
-          children: [
-            GestureDetector(
-              onTap: () {
-                controller.pickImage();
-              },
-              child: Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(50),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColor.white,
-                ),
-                child: const Icon(
-                  Icons.image,
-                  size: 40,
+      body: Obx(
+        () => SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.all(20),
+            children: [
+              GestureDetector(
+                onTap: () {
+                  controller.pickImage();
+                },
+                child: Container(
+                  height: Get.height * 0.3,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(50),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColor.white,
+                    image: controller.imageFile.value == null
+                        ? null
+                        : DecorationImage(
+                            image: FileImage(
+                              File(controller.imageFile.value?.path ?? ''),
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                  child: controller.imageFile.value == null
+                      ? const Icon(
+                          Icons.image,
+                          size: 40,
+                        )
+                      : null,
                 ),
               ),
-            ),
-            40.heightBox,
-            buildTextField(
-              hintText: 'Enter Full Name',
-              name: 'name',
-            ),
-            10.heightBox,
-            buildTextField(
-              hintText: 'Enter Username',
-              name: 'name',
-            ),
-            10.heightBox,
-            buildTextField(
-              hintText: 'Enter email',
-              name: 'name',
-              keyboardType: TextInputType.emailAddress,
-            ),
-          ],
+              40.heightBox,
+              buildTextField(
+                hintText: 'Enter Full Name',
+                name: 'name',
+              ),
+              10.heightBox,
+              buildTextField(
+                hintText: 'Enter Username',
+                name: 'name',
+              ),
+              10.heightBox,
+              buildTextField(
+                hintText: 'Enter email',
+                name: 'name',
+                keyboardType: TextInputType.emailAddress,
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: ElevatedButton(

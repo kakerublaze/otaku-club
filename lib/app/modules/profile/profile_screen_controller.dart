@@ -4,14 +4,15 @@ import 'package:logger/logger.dart';
 
 class ProfileScreenController extends GetxController {
   final ImagePicker picker = ImagePicker();
-  XFile? imageFile;
+  final imageFile = Rx<XFile?>(null);
   var logger = Logger();
 
   Future<void> pickImage() async {
     try {
-      imageFile = await picker.pickImage(
+      imageFile.value = await picker.pickImage(
         source: ImageSource.gallery,
       );
+      logger.d(imageFile()?.path);
     } catch (e) {
       logger.e(e);
     }
