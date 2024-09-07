@@ -565,7 +565,14 @@ class HomeScreen extends GetView<HomeScreenController> {
                   // Trending Now
                   getHeaderWidget(
                     title: 'Trending Now',
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(
+                        Routes.exploreList,
+                        arguments: {
+                          'pageName': 'Trending Now',
+                        },
+                      );
+                    },
                   ),
                   10.heightBox,
                   controller.loadingStates['trending'] == true
@@ -669,7 +676,14 @@ class HomeScreen extends GetView<HomeScreenController> {
                   // Popular Anime
                   getHeaderWidget(
                     title: 'Popular Anime',
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(
+                        Routes.exploreList,
+                        arguments: {
+                          'pageName': 'Popular Anime',
+                        },
+                      );
+                    },
                   ),
                   10.heightBox,
                   controller.loadingStates['popular'] == true
@@ -772,6 +786,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                   // Suggested For You
                   getHeaderWidget(
                     title: 'Suggested For You',
+                    showArrow: false,
                     onTap: () {},
                   ),
                   10.heightBox,

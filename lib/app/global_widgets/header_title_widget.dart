@@ -27,7 +27,9 @@ Widget getHeaderWidget({
           weight: 800,
         ).onTap(
           () {
-            onTap;
+            if (onTap != null) {
+              onTap(); // This invokes the onTap callback
+            }
           },
         ),
     ],

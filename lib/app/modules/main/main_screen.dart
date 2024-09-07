@@ -128,6 +128,19 @@ class MainScreen extends GetView<MainScreenController> {
                         ),
                         child: BottomNavigationBar(
                           onTap: (index) {
+                            if (index == 3) {
+                              Get.showSnackbar(
+                                const GetSnackBar(
+                                  message:
+                                      'This Page is Still in development :(',
+                                  backgroundColor: AppColor.red,
+                                  duration: Duration(
+                                    milliseconds: 1000,
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
                             controller.selectedIndex.value = index;
                             controller.selectedIndex.refresh();
                           },

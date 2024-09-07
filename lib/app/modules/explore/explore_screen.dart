@@ -122,12 +122,23 @@ class ExploreScreen extends StatelessWidget {
                     ),
                   ).onTap(
                     () {
-                      Get.toNamed(
-                        Routes.exploreList,
-                        arguments: {
-                          'pageName': controller.exploreMapDataList[index],
-                        },
-                      );
+                      controller.exploreMapDataList[index] == 'Calendar'
+                          ? Get.showSnackbar(
+                              const GetSnackBar(
+                                message: 'This Page is Still in development :(',
+                                backgroundColor: AppColor.red,
+                                duration: Duration(
+                                  milliseconds: 1000,
+                                ),
+                              ),
+                            )
+                          : Get.toNamed(
+                              Routes.exploreList,
+                              arguments: {
+                                'pageName':
+                                    controller.exploreMapDataList[index],
+                              },
+                            );
                     },
                   );
                 },

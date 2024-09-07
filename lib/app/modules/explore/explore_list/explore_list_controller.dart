@@ -61,6 +61,16 @@ class ExploreListController extends GetxController {
       'year': DateTime.now().year.toString(),
       'perPage': 20.toString(),
     },
+    "Popular Anime": {
+      'sort': '["POPULARITY_DESC"]',
+      'format': 'TV',
+      'perPage': 20.toString(),
+    },
+    "Trending Now": {
+      'sort': '["TRENDING_DESC"]',
+      'format': 'TV',
+      'perPage': 20.toString(),
+    },
   };
 
   void _scrollListener() {
@@ -70,7 +80,7 @@ class ExploreListController extends GetxController {
       // Check if more data is available, if true then call API to fetch more data
       isLoading.value = true;
       try {
-        if ((response.totalPages ?? 0) < currentPage.value) {
+        if ((response.totalPages ?? 0) > currentPage.value) {
           currentPage.value = currentPage.value + 1;
           currentPage.refresh();
         }
