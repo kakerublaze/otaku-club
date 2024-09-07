@@ -71,6 +71,9 @@ class ExploreListController extends GetxController {
       'format': 'TV',
       'perPage': 20.toString(),
     },
+    "Query": {
+      'perPage': 20.toString(),
+    },
   };
 
   void _scrollListener() {
@@ -80,13 +83,14 @@ class ExploreListController extends GetxController {
       // Check if more data is available, if true then call API to fetch more data
       isLoading.value = true;
       try {
-        if ((response.totalPages ?? 0) > currentPage.value) {
+        if (((response.totalResults ?? 0) / 20) > currentPage.value) {
           currentPage.value = currentPage.value + 1;
           currentPage.refresh();
+          exploreListData(
+            getArguments['pageName'],
+          );
         }
-        exploreListData(
-          getArguments['pageName'],
-        );
+        
       } finally {
         isLoading.value = false; // Reset loading after fetching data
       }
@@ -97,6 +101,9 @@ class ExploreListController extends GetxController {
     String getPageName = getArguments["pageName"];
     Map<String, String> parameters = pageParameters[getPageName] ?? {};
     pageParameters[getPageName]?['page'] = currentPage.value.toString();
+    if (getArguments['pageName'] == 'Query') {
+      pageParameters[getPageName]?['query'] = getArguments['query'];
+    }
     response = await restService.exploreListData(
       parameters: parameters,
     );

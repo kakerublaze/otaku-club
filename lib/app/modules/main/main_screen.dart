@@ -62,6 +62,10 @@ class MainScreen extends GetView<MainScreenController> {
                         weight: 800,
                         size: 24,
                         color: AppColor.white,
+                      ).onTap(
+                        () {
+                          controller.selectedIndex.value = 2;
+                        },
                       ),
                     20.widthBox,
                     controller.selectedIndex.value == 3
@@ -83,7 +87,16 @@ class MainScreen extends GetView<MainScreenController> {
                             color: AppColor.white,
                           ).onTap(
                             () {
-                              // Chat Section Redirect
+                              Get.showSnackbar(
+                                const GetSnackBar(
+                                  message:
+                                      'This features is still in development...',
+                                  backgroundColor: AppColor.red,
+                                  duration: Duration(
+                                    milliseconds: 1000,
+                                  ),
+                                ),
+                              );
                             },
                           ),
                     10.widthBox,

@@ -57,7 +57,11 @@ class RecentEpisodeData {
     imageHash = json['imageHash'];
     episodeId = json['episodeId'];
     episodeTitle = json['episodeTitle'];
-    episodeNumber = json['episodeNumber'];
+    episodeNumber = json['episodeNumber'] is int
+        ? json['episodeNumber']
+        : (json['episodeNumber'] != null && json['episodeNumber'] != '')
+            ? json['episodeNumber'].round()
+            : null;
     type = json['type'];
     malId = json['malId'];
   }

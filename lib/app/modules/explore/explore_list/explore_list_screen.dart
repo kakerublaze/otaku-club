@@ -50,7 +50,9 @@ class ExploreListScreen extends StatelessWidget {
                   ),
                   leadingWidth: 40,
                   title: Text(
-                    controller.getArguments['pageName'] ?? '',
+                    controller.getArguments['pageName'] == 'Query'
+                        ? controller.getArguments['query']
+                        : controller.getArguments['pageName'] ?? '',
                     style: const TextStyle(
                       color: AppColor.white,
                       fontSize: 20,
@@ -173,14 +175,16 @@ class ExploreListScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ).onTap(() {
-                      Get.toNamed(
-                        Routes.animeDetailsScreen,
-                        arguments: {
-                          'id': controller.exploreData[index].id,
-                        },
-                      );
-                    });
+                    ).onTap(
+                      () {
+                        Get.toNamed(
+                          Routes.animeDetailsScreen,
+                          arguments: {
+                            'id': controller.exploreData[index].id,
+                          },
+                        );
+                      },
+                    );
                   },
                 ),
               ),
