@@ -6,8 +6,10 @@ class ExploreController extends GetxController {
   List<String> exploreMapDataList = [
     "Top Rated",
     "Top Popular",
-    "Top Movies",
+    "Top Trending",
     "Calendar",
+    "Top Movies",
+    "Top Songs",
     "Spring",
     "Summer",
     "Fall",

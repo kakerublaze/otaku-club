@@ -3,6 +3,8 @@ import 'package:otakuclub/app/modules/anime/anime_screen.dart';
 import 'package:otakuclub/app/modules/anime/anime_screen_binding.dart';
 import 'package:otakuclub/app/modules/anime_details_screen/anime_details_binding.dart';
 import 'package:otakuclub/app/modules/anime_details_screen/anime_details_screen.dart';
+import 'package:otakuclub/app/modules/explore/explore_list/explore_list_binding.dart';
+import 'package:otakuclub/app/modules/explore/explore_list/explore_list_screen.dart';
 // import 'package:otakuclub/app/modules/download_anime/download_anime.dart';
 import 'package:otakuclub/app/modules/explore/explore_screen.dart';
 import 'package:otakuclub/app/modules/explore/explore_screen_binding.dart';
@@ -81,6 +83,11 @@ class AppPages {
       name: Routes.editProfile,
       page: () => const EditProfileScreen(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: Routes.exploreList,
+      page: () => const ExploreListScreen(),
+      binding: ExploreListBindings(),
     ),
   ];
 }

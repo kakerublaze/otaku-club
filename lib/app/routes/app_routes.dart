@@ -12,4 +12,5 @@ abstract class Routes {
   static const explore = '/explore';
   static const profile = '/profile';
   static const editProfile = '/editProfile';
+  static const exploreList = '/exploreList';
 }

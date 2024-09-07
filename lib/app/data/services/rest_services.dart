@@ -7,6 +7,7 @@ import 'package:otakuclub/app/data/enums/services_enums.dart';
 import 'package:otakuclub/app/data/models/airing_schedule_response_model.dart';
 import 'package:otakuclub/app/data/models/anime_details_data_response_model.dart';
 import 'package:otakuclub/app/data/models/anime_streaming_data_response_model.dart';
+import 'package:otakuclub/app/data/models/explore_list_response_model.dart';
 import 'package:otakuclub/app/data/models/manga_list_response_model.dart';
 import 'package:otakuclub/app/data/models/popular_anime_response_model.dart';
 import 'package:otakuclub/app/data/models/recent_anime_episode_response_model.dart';
@@ -255,6 +256,29 @@ class RestService {
         e.toString(),
       );
       return AnimeStreamingDataResponseModel();
+    }
+  }
+
+  // --> Explore List API's
+  Future<ExploreListResponseModel> exploreListData(
+      {Map<String, String>? parameters}) async {
+    try {
+      var response = await getResponse(
+        uri: AppApis.animeSearch,
+        method: Method.get,
+        queryParameters: parameters ?? {},
+      );
+      var result = ExploreListResponseModel.fromJson(
+        json.decode(
+          response,
+        ),
+      );
+      return result;
+    } catch (e) {
+      debugPrint(
+        e.toString(),
+      );
+      return ExploreListResponseModel();
     }
   }
 }

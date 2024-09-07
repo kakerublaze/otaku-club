@@ -4,6 +4,7 @@ import 'package:otakuclub/app/core/constants/app_colors.dart';
 import 'package:otakuclub/app/core/utils/extensions.dart';
 import 'package:otakuclub/app/global_widgets/header_title_widget.dart';
 import 'package:otakuclub/app/modules/explore/explore_screen_controller.dart';
+import 'package:otakuclub/app/routes/app_pages.dart';
 
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
@@ -14,6 +15,7 @@ class ExploreScreen extends StatelessWidget {
       ExploreController(),
     );
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         child: Column(
           children: [
@@ -118,6 +120,15 @@ class ExploreScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                  ).onTap(
+                    () {
+                      Get.toNamed(
+                        Routes.exploreList,
+                        arguments: {
+                          'pageName': controller.exploreMapDataList[index],
+                        },
+                      );
+                    },
                   );
                 },
               ),

@@ -18,6 +18,7 @@ class MainScreen extends GetView<MainScreenController> {
     return Obx(
       () {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           key: controller.key,
           extendBodyBehindAppBar: true,
           extendBody: true,
