@@ -220,6 +220,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                   // Airing Soon
                   getHeaderWidget(
                     title: 'Airing Soon',
+                    showArrow: false,
                     onTap: () {},
                   ),
                   10.heightBox,
@@ -385,6 +386,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                   // Latest Released Episodes
                   getHeaderWidget(
                     title: 'Latest Released Episodes',
+                    showArrow: false,
                     onTap: () {},
                   ),
                   10.heightBox,

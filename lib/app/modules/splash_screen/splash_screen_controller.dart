@@ -15,8 +15,11 @@ class SplashScreenController extends GetxController {
         seconds: 2,
       ),
       () {
+        // Get.offAllNamed(
+        //   Routes.login,
+        // );
         Get.offAllNamed(
-          Routes.login,
+          Routes.mainPage,
         );
       },
     );
