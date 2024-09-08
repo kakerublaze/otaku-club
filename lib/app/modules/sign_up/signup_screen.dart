@@ -8,17 +8,38 @@ import '../../core/constants/app_sizes.dart';
 import '../../core/constants/app_texts.dart';
 import '../../core/utils/helpers/image_helper.dart';
 import '../../routes/app_pages.dart';
-import 'login_screen_controller.dart';
+import 'signup_screen_controller.dart';
 import 'package:get/get.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LoginScreenController());
+    final controller = Get.put(SignupScreenController());
 
     return Scaffold(
+      appBar: AppBar(
+        leading: const Icon(
+          Icons.arrow_back_ios,
+          size: 24,
+          weight: 800,
+          color: AppColor.white,
+        ).onTap(
+          () {
+            Get.back();
+          },
+        ),
+        centerTitle: false,
+        title: const Text(
+          'Create your account',
+          style: TextStyle(
+            color: AppColor.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -53,14 +74,6 @@ class LoginScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   child: ListView(
                     children: [
-                      const Text(
-                        'Login to your account',
-                        style: TextStyle(
-                          color: AppColor.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
                       20.heightBox,
                       buildTextField(
                         hintText: 'Enter Username',
@@ -78,6 +91,21 @@ class LoginScreen extends StatelessWidget {
                             controller.hidePassword.toggle();
                           },
                           icon: controller.hidePassword()
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off),
+                        ),
+                      ),
+                      10.heightBox,
+                      buildTextField(
+                        hintText: 'Re-Enter Password',
+                        name: 'password',
+                        obscureText: controller.hideConfirmPassword(),
+                        prefixIcon: const Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            controller.hideConfirmPassword.toggle();
+                          },
+                          icon: controller.hideConfirmPassword()
                               ? const Icon(Icons.visibility)
                               : const Icon(Icons.visibility_off),
                         ),
@@ -101,7 +129,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                         child: const Text(
-                          'Login',
+                          'Create Account',
                           style: TextStyle(
                             color: AppColor.white,
                             fontSize: 20,
@@ -115,7 +143,7 @@ class LoginScreen extends StatelessWidget {
                           text: TextSpan(
                             children: [
                               const TextSpan(
-                                text: 'Don\'t have an account? ',
+                                text: 'Already have an account? ',
                                 style: TextStyle(
                                   color: AppColor.black,
                                   fontSize: 18,
@@ -123,7 +151,7 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: 'Sign Up',
+                                text: 'Login',
                                 style: const TextStyle(
                                   color: AppColor.red,
                                   fontSize: 18,
@@ -132,7 +160,7 @@ class LoginScreen extends StatelessWidget {
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Get.toNamed(Routes.signUp);
+                                    Get.back();
                                   },
                               ),
                             ],

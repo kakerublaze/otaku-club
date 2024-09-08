@@ -24,6 +24,8 @@ import 'package:otakuclub/app/modules/video_player/video_player_screen.dart';
 
 import '../modules/profile/edit_profile.dart';
 import '../modules/profile/profile_screen.dart';
+import '../modules/sign_up/signup_screen.dart';
+import '../modules/sign_up/signup_screen_binding.dart';
 
 part 'app_routes.dart';
 
@@ -95,6 +97,11 @@ class AppPages {
       name: Routes.login,
       page: () => const LoginScreen(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: Routes.signUp,
+      page: () => const SignupScreen(),
+      binding: SignupBinding(),
     ),
   ];
 }
