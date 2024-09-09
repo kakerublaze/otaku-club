@@ -133,7 +133,7 @@ class VideoPlayerScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    'Episode : ${controller.episodeData.number}',
+                                    'Episode : ${((controller.episodeData.number ?? 1) % 1 == 0) ? controller.episodeData.number?.toInt() : controller.episodeData.number}',
                                     style: const TextStyle(
                                       color: AppColor.white,
                                       fontSize: 16,
@@ -294,7 +294,7 @@ class VideoPlayerScreen extends StatelessWidget {
                                           SizedBox(
                                             width: 180,
                                             child: Text(
-                                              '${controller.episodeDataList[index].number}. ${controller.episodeDataList[index].title ?? ''}',
+                                              '${((controller.episodeDataList[index].number ?? 1) % 1 == 0) ? controller.episodeDataList[index].number?.toInt : controller.episodeDataList[index].number}. ${controller.episodeDataList[index].title ?? ''}',
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(

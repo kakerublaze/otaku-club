@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:otakuclub/app/core/constants/app_colors.dart';
 import 'package:otakuclub/app/core/constants/app_images.dart';
 import 'package:otakuclub/app/core/utils/extensions.dart';
@@ -568,10 +568,10 @@ class AnimeDetailsPage extends StatelessWidget {
                               ],
                             ),
                             30.heightBox,
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Episodes',
                                   style: TextStyle(
                                     color: AppColor.white,
@@ -579,120 +579,162 @@ class AnimeDetailsPage extends StatelessWidget {
                                     fontWeight: FontWeight.w900,
                                   ),
                                 ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 24,
-                                  weight: 800,
-                                  color: AppColor.white,
-                                ),
+                                if ((controller.animeDataModel.value.episodes ??
+                                        [])
+                                    .isNotEmpty)
+                                  const Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 24,
+                                    weight: 800,
+                                    color: AppColor.white,
+                                  ),
                               ],
                             ),
                             20.heightBox,
                             SizedBox(
                               height: 170,
                               width: Get.width,
-                              child: ListView.builder(
-                                itemCount: (controller.animeDataModel.value
-                                                .episodes?.length ??
-                                            0) >
-                                        40
-                                    ? 40
-                                    : controller
-                                        .animeDataModel.value.episodes?.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
+                              child: (controller
+                                              .animeDataModel.value.episodes ??
+                                          [])
+                                      .isEmpty
+                                  ? Center(
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                          top: 20,
+                                          bottom: 20,
+                                          right: 30,
+                                          left: 30,
+                                        ),
                                         decoration: BoxDecoration(
+                                          color: AppColor.grey600,
                                           borderRadius: BorderRadius.circular(
                                             10,
                                           ),
-                                          border: Border.all(
+                                        ),
+                                        child: const Text(
+                                          'No episode found as of now',
+                                          style: TextStyle(
                                             color: AppColor.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w800,
                                           ),
                                         ),
-                                        child: Stack(
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      itemCount: (controller.animeDataModel
+                                                      .value.episodes?.length ??
+                                                  0) >
+                                              40
+                                          ? 40
+                                          : controller.animeDataModel.value
+                                              .episodes?.length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                10,
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  10,
+                                                ),
+                                                border: Border.all(
+                                                  color: AppColor.white,
+                                                ),
                                               ),
-                                              child: ImageHelper(
-                                                imagePath: controller
+                                              child: Stack(
+                                                children: [
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                      10,
+                                                    ),
+                                                    child: ImageHelper(
+                                                      imagePath: controller
+                                                              .animeDataModel
+                                                              .value
+                                                              .episodes?[index]
+                                                              .image ??
+                                                          '',
+                                                      height: 110,
+                                                      width: 200,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                  Positioned(
+                                                    top: 0,
+                                                    bottom: 0,
+                                                    left: 0,
+                                                    right: 0,
+                                                    child: Icon(
+                                                      Icons
+                                                          .play_circle_outline_outlined,
+                                                      size: 48,
+                                                      color: AppColor.white
+                                                          .withOpacity(0.85),
+                                                      weight: 400,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            10.heightBox,
+                                            SizedBox(
+                                              width: 180,
+                                              child: Text(
+                                                controller
                                                         .animeDataModel
                                                         .value
                                                         .episodes?[index]
-                                                        .image ??
+                                                        .title ??
                                                     '',
-                                                height: 110,
-                                                width: 200,
-                                                fit: BoxFit.fill,
-                                              ),
-                                            ),
-                                            Positioned(
-                                              top: 0,
-                                              bottom: 0,
-                                              left: 0,
-                                              right: 0,
-                                              child: Icon(
-                                                Icons
-                                                    .play_circle_outline_outlined,
-                                                size: 48,
-                                                color: AppColor.white
-                                                    .withOpacity(0.85),
-                                                weight: 400,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                  color: AppColor.white,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
                                               ),
                                             ),
                                           ],
-                                        ),
-                                      ),
-                                      10.heightBox,
-                                      SizedBox(
-                                        width: 180,
-                                        child: Text(
-                                          controller.animeDataModel.value
-                                                  .episodes?[index].title ??
-                                              '',
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            color: AppColor.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ).onTap(
-                                    () {
-                                      Get.toNamed(
-                                        Routes.videoPlayer,
-                                        arguments: {
-                                          'id': controller.animeDataModel.value
-                                                  .episodes?[index].id ??
-                                              '',
-                                          'data': controller.animeDataModel
-                                              .value.episodes?[index],
-                                          'episodes': controller
-                                              .animeDataModel.value.episodes,
-                                          'recommendation': controller
-                                              .animeDataModel
-                                              .value
-                                              .recommendations,
-                                          'name':
-                                              '${(controller.animeDataModel.value.title?.english ?? controller.animeDataModel.value.title?.native ?? controller.animeDataModel.value.title?.romaji ?? controller.animeDataModel.value.title?.userPreferred)}',
-                                        },
-                                      );
-                                    },
-                                  ).paddingOnly(
-                                    left: index == 0 ? 0 : 20,
-                                  );
-                                },
-                              ),
+                                        ).onTap(
+                                          () {
+                                            Get.toNamed(
+                                              Routes.videoPlayer,
+                                              arguments: {
+                                                'id': controller
+                                                        .animeDataModel
+                                                        .value
+                                                        .episodes?[index]
+                                                        .id ??
+                                                    '',
+                                                'data': controller
+                                                    .animeDataModel
+                                                    .value
+                                                    .episodes?[index],
+                                                'episodes': controller
+                                                    .animeDataModel
+                                                    .value
+                                                    .episodes,
+                                                'recommendation': controller
+                                                    .animeDataModel
+                                                    .value
+                                                    .recommendations,
+                                                'name':
+                                                    '${(controller.animeDataModel.value.title?.english ?? controller.animeDataModel.value.title?.native ?? controller.animeDataModel.value.title?.romaji ?? controller.animeDataModel.value.title?.userPreferred)}',
+                                              },
+                                            );
+                                          },
+                                        ).paddingOnly(
+                                          left: index == 0 ? 0 : 20,
+                                        );
+                                      },
+                                    ),
                             ),
                             30.heightBox,
                             const Text(

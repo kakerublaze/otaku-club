@@ -576,7 +576,7 @@ class Episodes {
   String? id;
   String? title;
   String? description;
-  int? number;
+  double? number;
   String? image;
   String? imageHash;
   String? airDate;
@@ -594,7 +594,7 @@ class Episodes {
     id = json['id'];
     title = json['title'];
     description = json['description'];
-    number = json['number'];
+    number = (json['number'] ?? '0.0').toDouble();
     image = json['image'];
     imageHash = json['imageHash'];
     airDate = json['airDate'];
