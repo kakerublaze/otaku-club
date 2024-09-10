@@ -11,6 +11,8 @@ class AppImages {
   static const homeSelected = 'assets/images/home_fill.png';
   static const manga = 'assets/images/manga_outline.png';
   static const mangaSelected = 'assets/images/manga_fill.png';
+  static const newsSelected = 'assets/images/news_fill.png';
+  static const news = 'assets/images/news_outline.png';
   static const profile = 'assets/images/profile_outline.png';
   static const profileSelected = 'assets/images/profile_fill.png';
   static const tvIcon = 'assets/images/tv_icon.png';

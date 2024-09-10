@@ -46,9 +46,9 @@ class MainScreen extends GetView<MainScreenController> {
                           ? const Text('Anime')
                           : controller.selectedIndex.value == 2
                               ? const Text('Explore')
-                              // : controller.selectedIndex.value == 3
-                              //     ? const Text('Manga')
-                              : const Text('Username'),
+                              : controller.selectedIndex.value == 3
+                                  ? const Text('News')
+                                  : const Text('Username'),
                   titleTextStyle: const TextStyle(
                     color: AppColor.white,
                     fontSize: 24,
@@ -141,7 +141,7 @@ class MainScreen extends GetView<MainScreenController> {
                         ),
                         child: BottomNavigationBar(
                           onTap: (index) {
-                            if (index == 3) {
+                            if (index == 4) {
                               Get.showSnackbar(
                                 const GetSnackBar(
                                   message:
@@ -290,47 +290,46 @@ class MainScreen extends GetView<MainScreenController> {
                                     ),
                               label: 'Explore',
                             ),
-                            // Manga is Hide --> Remember to change index of given below tab
-                            // BottomNavigationBarItem(
-                            //   icon: controller.selectedIndex.value == 3
-                            //       ? Container(
-                            //           decoration: BoxDecoration(
-                            //             color: AppColor.white30,
-                            //             borderRadius: BorderRadius.circular(
-                            //               30,
-                            //             ),
-                            //           ),
-                            //           padding: const EdgeInsets.only(
-                            //             top: 5,
-                            //             bottom: 5,
-                            //             right: 20,
-                            //             left: 20,
-                            //           ),
-                            //           child: Image.asset(
-                            //             AppImages.mangaSelected,
-                            //             width: 24,
-                            //             height: 24,
-                            //             color: Colors.white,
-                            //           ),
-                            //         )
-                            //       : Container(
-                            //           padding: const EdgeInsets.only(
-                            //             top: 5,
-                            //             bottom: 5,
-                            //             right: 20,
-                            //             left: 20,
-                            //           ),
-                            //           child: Image.asset(
-                            //             AppImages.manga,
-                            //             width: 24,
-                            //             height: 24,
-                            //             color: AppColor.white,
-                            //           ),
-                            //         ),
-                            //   label: 'Manga',
-                            // ),
                             BottomNavigationBarItem(
                               icon: controller.selectedIndex.value == 3
+                                  ? Container(
+                                      decoration: BoxDecoration(
+                                        color: AppColor.white30,
+                                        borderRadius: BorderRadius.circular(
+                                          30,
+                                        ),
+                                      ),
+                                      padding: const EdgeInsets.only(
+                                        top: 5,
+                                        bottom: 5,
+                                        right: 20,
+                                        left: 20,
+                                      ),
+                                      child: Image.asset(
+                                        AppImages.newsSelected,
+                                        width: 24,
+                                        height: 24,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : Container(
+                                      padding: const EdgeInsets.only(
+                                        top: 5,
+                                        bottom: 5,
+                                        right: 20,
+                                        left: 20,
+                                      ),
+                                      child: Image.asset(
+                                        AppImages.news,
+                                        width: 24,
+                                        height: 24,
+                                        color: AppColor.white,
+                                      ),
+                                    ),
+                              label: 'News',
+                            ),
+                            BottomNavigationBarItem(
+                              icon: controller.selectedIndex.value == 4
                                   ? Container(
                                       decoration: BoxDecoration(
                                         color: AppColor.white30,

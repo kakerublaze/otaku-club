@@ -22,4 +22,6 @@ class AppApis {
   static const String animeStream = 'meta/anilist/watch';
   // --> Anime Streaming Data API's
   static const String animeSearch = 'meta/anilist/advanced-search';
+  // --> News API's Data
+  static const String newsData = 'news/ann/recent-feeds';
 }

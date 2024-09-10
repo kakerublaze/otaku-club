@@ -9,6 +9,7 @@ import 'package:otakuclub/app/data/models/anime_details_data_response_model.dart
 import 'package:otakuclub/app/data/models/anime_streaming_data_response_model.dart';
 import 'package:otakuclub/app/data/models/explore_list_response_model.dart';
 import 'package:otakuclub/app/data/models/manga_list_response_model.dart';
+import 'package:otakuclub/app/data/models/news_response_model.dart';
 import 'package:otakuclub/app/data/models/popular_anime_response_model.dart';
 import 'package:otakuclub/app/data/models/recent_anime_episode_response_model.dart';
 import 'package:otakuclub/app/data/models/suggested_anime_for_you_response_model.dart';
@@ -279,6 +280,25 @@ class RestService {
         e.toString(),
       );
       return ExploreListResponseModel();
+    }
+  }
+
+  // --> News List API's
+  Future<List<NewsResponseModel>> newsListData(
+      {Map<String, String>? parameters}) async {
+    try {
+      var response = await getResponse(
+        uri: AppApis.newsData,
+        method: Method.get,
+        queryParameters: parameters ?? {},
+      );
+      List<dynamic> jsonData = json.decode(response);
+      return jsonData.map((json) => NewsResponseModel.fromJson(json)).toList();
+    } catch (e) {
+      debugPrint(
+        e.toString(),
+      );
+      return [];
     }
   }
 }
