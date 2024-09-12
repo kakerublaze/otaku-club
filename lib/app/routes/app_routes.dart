@@ -15,4 +15,5 @@ abstract class Routes {
   static const exploreList = '/exploreList';
   static const login = '/login';
   static const signUp = '/signUp';
+  static const newsDetails = '/newsDetails';
 }

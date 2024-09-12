@@ -24,13 +24,13 @@ class AnimeScreenController extends GetxController {
       },
     );
 
-    if ((popularAnimeData.popularAnimeData ?? []).isNotEmpty) {
-      popularAnimeList.addAll(
-        popularAnimeData.popularAnimeData ?? [],
-      );
-    }
-    if (pageIndex.value == 1) isLoadingData.value = false;
-    popularAnimeList.refresh();
+      if ((popularAnimeData.popularAnimeData ?? []).isNotEmpty) {
+        popularAnimeList.addAll(
+          popularAnimeData.popularAnimeData ?? [],
+        );
+      }
+      if (pageIndex.value == 1) isLoadingData.value = false;
+      popularAnimeList.refresh();
   }
 
   void _scrollListener() {

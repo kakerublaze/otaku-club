@@ -47,7 +47,7 @@ class MainScreen extends GetView<MainScreenController> {
                           : controller.selectedIndex.value == 2
                               ? const Text('Explore')
                               : controller.selectedIndex.value == 3
-                                  ? const Text('News')
+                                  ? const Text('Recent News')
                                   : const Text('Username'),
                   titleTextStyle: const TextStyle(
                     color: AppColor.white,
@@ -68,7 +68,7 @@ class MainScreen extends GetView<MainScreenController> {
                         },
                       ),
                     20.widthBox,
-                    controller.selectedIndex.value == 3
+                    controller.selectedIndex.value == 4
                         ? IconButton(
                             icon: const Icon(
                               Icons.menu,

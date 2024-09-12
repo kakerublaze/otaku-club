@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:otakuclub/app/modules/anime/anime_screen.dart';
 import 'package:otakuclub/app/modules/explore/explore_screen.dart';
 import 'package:otakuclub/app/modules/home/home_screen.dart';
-import 'package:otakuclub/app/modules/news/news_screen.dart';
+import 'package:otakuclub/app/modules/news/news_list/news_screen.dart';
 
 import '../profile/profile_screen.dart';
 

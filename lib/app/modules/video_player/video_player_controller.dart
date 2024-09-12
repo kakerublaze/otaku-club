@@ -1,14 +1,12 @@
-import 'dart:io';
-
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
+// import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:otakuclub/app/data/models/anime_details_data_response_model.dart';
 import 'package:otakuclub/app/data/models/anime_streaming_data_response_model.dart';
 import 'package:otakuclub/app/data/services/rest_services.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:path_provider/path_provider.dart';
+// import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class VideoPlayerController extends GetxController {
@@ -46,30 +44,30 @@ class VideoPlayerController extends GetxController {
     }
   }
 
-  Future<void> downloadFile(
-      String url, String folderName, String fileName) async {
-    await requestPermissions();
-    Directory directory = await getApplicationDocumentsDirectory();
-    final newDirectory = Directory('${directory.path}/$folderName');
-    if (!await newDirectory.exists()) {
-      await newDirectory.create(recursive: true);
-      debugPrint('Directory created at: ${directory.path}/$folderName');
-    } else {
-      debugPrint('Directory already exists at: ${directory.path}/$folderName');
-    }
-    final taskId = await FlutterDownloader.enqueue(
-      url: url,
-      savedDir: directory.path.isNotEmpty
-          ? '${directory.path}/$folderName'
-          : '/storage/emulated/0/Download',
-      fileName: fileName,
-      showNotification: true,
-      openFileFromNotification: true,
-    );
-    debugPrint(
-      'Download started with taskId: $taskId',
-    );
-  }
+  // Future<void> downloadFile(
+  //     String url, String folderName, String fileName) async {
+  //   await requestPermissions();
+  //   Directory directory = await getApplicationDocumentsDirectory();
+  //   final newDirectory = Directory('${directory.path}/$folderName');
+  //   if (!await newDirectory.exists()) {
+  //     await newDirectory.create(recursive: true);
+  //     debugPrint('Directory created at: ${directory.path}/$folderName');
+  //   } else {
+  //     debugPrint('Directory already exists at: ${directory.path}/$folderName');
+  //   }
+  //   final taskId = await FlutterDownloader.enqueue(
+  //     url: url,
+  //     savedDir: directory.path.isNotEmpty
+  //         ? '${directory.path}/$folderName'
+  //         : '/storage/emulated/0/Download',
+  //     fileName: fileName,
+  //     showNotification: true,
+  //     openFileFromNotification: true,
+  //   );
+  //   debugPrint(
+  //     'Download started with taskId: $taskId',
+  //   );
+  // }
 
   Future<void> colorGenerator(String url) async {
     final PaletteGenerator generator = await PaletteGenerator.fromImageProvider(

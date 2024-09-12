@@ -383,12 +383,22 @@ class AnimeDetailsPage extends StatelessWidget {
                                               .description ??
                                           '--/--',
                                     )
-                                  : controller.removeHtmlTags(
-                                      controller
-                                              .animeDataModel.value.description
-                                              ?.substring(0, 160) ??
-                                          '--/--',
-                                    ),
+                                  : (controller.animeDataModel.value
+                                                      .description ??
+                                                  '')
+                                              .length >
+                                          160
+                                      ? controller.removeHtmlTags(
+                                          controller.animeDataModel.value
+                                                  .description
+                                                  ?.substring(0, 160) ??
+                                              '--/--',
+                                        )
+                                      : controller.removeHtmlTags(
+                                          controller.animeDataModel.value
+                                                  .description ??
+                                              '--/--',
+                                        ),
                               maxLines: controller.isExpanded.value ? null : 3,
                               overflow: controller.isExpanded.value
                                   ? null
@@ -399,64 +409,80 @@ class AnimeDetailsPage extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            10.heightBox,
-                            Center(
-                              child: Text(
-                                controller.isExpanded.value
-                                    ? 'Show Less'
-                                    : 'Show More',
-                                style: const TextStyle(
-                                  color: AppColor.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ).onTap(
-                                () {
-                                  controller.isExpanded.value =
-                                      !controller.isExpanded.value;
-                                },
-                              ),
-                            ),
-                            20.heightBox,
-                            SizedBox(
-                              height: 45,
-                              child: ListView.builder(
-                                itemCount: controller
-                                    .animeDataModel.value.genres?.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    padding: const EdgeInsets.only(
-                                      left: 15,
-                                      right: 15,
-                                      top: 5,
-                                      bottom: 5,
-                                    ),
-                                    margin: EdgeInsets.only(
-                                      left: index == 0 ? 10 : 20,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: AppColor.white),
-                                      borderRadius: BorderRadius.circular(
-                                        10,
+                            (controller.animeDataModel.value.description ?? '')
+                                        .length >
+                                    160
+                                ? 10.heightBox
+                                : Container(),
+                            (controller.animeDataModel.value.description ?? '')
+                                        .length >
+                                    160
+                                ? Center(
+                                    child: Text(
+                                      controller.isExpanded.value
+                                          ? 'Show Less'
+                                          : 'Show More',
+                                      style: const TextStyle(
+                                        color: AppColor.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w800,
                                       ),
+                                    ).onTap(
+                                      () {
+                                        controller.isExpanded.value =
+                                            !controller.isExpanded.value;
+                                      },
                                     ),
-                                    child: Center(
-                                      child: Text(
-                                        controller.animeDataModel.value
-                                                .genres?[index] ??
-                                            '',
-                                        style: const TextStyle(
-                                          color: AppColor.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
+                                  )
+                                : Container(),
+                            (controller.animeDataModel.value.description ?? '')
+                                        .length >
+                                    160
+                                ? 20.heightBox
+                                : Container(),
+                            (controller.animeDataModel.value.genres ?? [])
+                                    .isNotEmpty
+                                ? SizedBox(
+                                    height: 45,
+                                    child: ListView.builder(
+                                      itemCount: controller
+                                          .animeDataModel.value.genres?.length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          padding: const EdgeInsets.only(
+                                            left: 15,
+                                            right: 15,
+                                            top: 5,
+                                            bottom: 5,
+                                          ),
+                                          margin: EdgeInsets.only(
+                                            left: index == 0 ? 10 : 20,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: AppColor.white),
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              controller.animeDataModel.value
+                                                      .genres?[index] ??
+                                                  '',
+                                              style: const TextStyle(
+                                                color: AppColor.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  );
-                                },
-                              ),
-                            ),
+                                  )
+                                : Container(),
                             20.heightBox,
                             const Text(
                               'Information',
@@ -592,7 +618,12 @@ class AnimeDetailsPage extends StatelessWidget {
                             ),
                             20.heightBox,
                             SizedBox(
-                              height: 170,
+                              height:
+                                  (controller.animeDataModel.value.episodes ??
+                                              [])
+                                          .isEmpty
+                                      ? 100
+                                      : 170,
                               width: Get.width,
                               child: (controller
                                               .animeDataModel.value.episodes ??
@@ -745,71 +776,106 @@ class AnimeDetailsPage extends StatelessWidget {
                                 fontWeight: FontWeight.w900,
                               ),
                             ),
-                            20.heightBox,
-                            SizedBox(
-                              height: 170,
-                              width: Get.width,
-                              child: ListView.builder(
-                                itemCount: controller
-                                    .animeDataModel.value.characters?.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                          50,
+                            (controller.animeDataModel.value.characters ?? [])
+                                    .isEmpty
+                                ? 10.heightBox
+                                : 20.heightBox,
+                            (controller.animeDataModel.value.characters ?? [])
+                                    .isEmpty
+                                ? SizedBox(
+                                    height: 100,
+                                    width: Get.width,
+                                    child: Center(
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                          top: 20,
+                                          bottom: 20,
+                                          right: 30,
+                                          left: 30,
                                         ),
-                                        child: ImageHelper(
-                                          imagePath: controller
-                                                  .animeDataModel
-                                                  .value
-                                                  .characters?[index]
-                                                  .image ??
-                                              '',
-                                          height: 100,
-                                          width: 100,
-                                          fit: BoxFit.fill,
+                                        decoration: BoxDecoration(
+                                          color: AppColor.grey600,
+                                          borderRadius: BorderRadius.circular(
+                                            10,
+                                          ),
                                         ),
-                                      ),
-                                      20.heightBox,
-                                      Text(
-                                        controller
-                                                .animeDataModel
-                                                .value
-                                                .characters?[index]
-                                                .name
-                                                ?.full ??
-                                            controller
-                                                .animeDataModel
-                                                .value
-                                                .characters?[index]
-                                                .name
-                                                ?.native ??
-                                            controller
-                                                .animeDataModel
-                                                .value
-                                                .characters?[index]
-                                                .name
-                                                ?.userPreferred ??
-                                            '',
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          color: AppColor.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
+                                        child: const Text(
+                                          'No episode found as of now',
+                                          style: TextStyle(
+                                            color: AppColor.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w800,
+                                          ),
                                         ),
                                       ),
-                                    ],
-                                  ).paddingOnly(
-                                    left: index == 0 ? 0 : 20,
-                                  );
-                                },
-                              ),
-                            ),
+                                    ),
+                                  )
+                                : SizedBox(
+                                    height: 170,
+                                    width: Get.width,
+                                    child: ListView.builder(
+                                      itemCount: controller.animeDataModel.value
+                                          .characters?.length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                50,
+                                              ),
+                                              child: ImageHelper(
+                                                imagePath: controller
+                                                        .animeDataModel
+                                                        .value
+                                                        .characters?[index]
+                                                        .image ??
+                                                    '',
+                                                height: 100,
+                                                width: 100,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                            20.heightBox,
+                                            Text(
+                                              controller
+                                                      .animeDataModel
+                                                      .value
+                                                      .characters?[index]
+                                                      .name
+                                                      ?.full ??
+                                                  controller
+                                                      .animeDataModel
+                                                      .value
+                                                      .characters?[index]
+                                                      .name
+                                                      ?.native ??
+                                                  controller
+                                                      .animeDataModel
+                                                      .value
+                                                      .characters?[index]
+                                                      .name
+                                                      ?.userPreferred ??
+                                                  '',
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                color: AppColor.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ],
+                                        ).paddingOnly(
+                                          left: index == 0 ? 0 : 20,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                            30.heightBox,
                           ],
                         ).paddingOnly(
                           left: 10,
