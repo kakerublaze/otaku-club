@@ -22,7 +22,8 @@ class AiringScheduleResponseModel {
     data['currentPage'] = currentPage;
     data['hasNextPage'] = hasNextPage;
     if (airingScheduleAnimeData != null) {
-      data['results'] = airingScheduleAnimeData!.map((v) => v.toJson()).toList();
+      data['results'] =
+          airingScheduleAnimeData!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -32,7 +33,7 @@ class AiringScheduleAnimeData {
   String? id;
   int? malId;
   int? episode;
-  int? airingAt;
+  DateTime? airingAt;
   Title? title;
   String? country;
   String? image;
@@ -68,7 +69,8 @@ class AiringScheduleAnimeData {
     id = json['id'];
     malId = json['malId'];
     episode = json['episode'];
-    airingAt = json['airingAt'];
+    airingAt = DateTime.fromMillisecondsSinceEpoch(json['airingAt'] * 1000);
+    // airingAt = json['airingAt'];
     title = json['title'] != null ? Title.fromJson(json['title']) : null;
     country = json['country'];
     image = json['image'];

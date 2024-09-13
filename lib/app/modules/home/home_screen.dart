@@ -220,8 +220,15 @@ class HomeScreen extends GetView<HomeScreenController> {
                   // Airing Soon
                   getHeaderWidget(
                     title: 'Airing Soon',
-                    showArrow: false,
-                    onTap: () {},
+                    showArrow: true,
+                    onTap: () {
+                      Get.toNamed(
+                        Routes.airingSchedule,
+                        arguments: {
+                          'airingDataList': controller.airingScheduleAnimeList,
+                        },
+                      );
+                    },
                   ),
                   10.heightBox,
                   controller.loadingStates['airing'] == true
@@ -237,10 +244,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                               final airingAt = controller
                                       .airingScheduleAnimeList[index]
                                       .airingAt ??
-                                  1;
-                              final futureDateTime =
-                                  DateTime.fromMillisecondsSinceEpoch(
-                                      airingAt * 1000);
+                                  DateTime.now();
+                              final futureDateTime = airingAt;
+                              // DateTime.fromMillisecondsSinceEpoch(
+                              //     airingAt * 1000);
                               final now = DateTime.now();
                               final difference = futureDateTime.difference(now);
 

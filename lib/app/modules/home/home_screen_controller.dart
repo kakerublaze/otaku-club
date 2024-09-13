@@ -59,8 +59,8 @@ class HomeScreenController extends GetxController {
       loadingStates['airing'] = true;
       var airingScheduleAnimeData = await restService.airingScheduleAnime(
         queryParameter: {
-          'page': pageIndex.toString(),
-          'perPage': perPageCount.toString(),
+          // 'page': pageIndex.toString(),
+          'perPage': 250.toString(),
           'notYetAired': true.toString(),
         },
       );

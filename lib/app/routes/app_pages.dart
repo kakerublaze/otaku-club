@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:otakuclub/app/modules/airing_schedule/airing_schedule_binding.dart';
+import 'package:otakuclub/app/modules/airing_schedule/airing_schedule_screen.dart';
 import 'package:otakuclub/app/modules/anime/anime_screen.dart';
 import 'package:otakuclub/app/modules/anime/anime_screen_binding.dart';
 import 'package:otakuclub/app/modules/anime_details_screen/anime_details_binding.dart';
@@ -109,6 +111,11 @@ class AppPages {
       name: Routes.newsDetails,
       page: () => const NewsDetailsScreen(),
       binding: NewsDetailsBinding(),
+    ),
+    GetPage(
+      name: Routes.airingSchedule,
+      page: () => const AiringScheduleScreen(),
+      binding: AiringScheduleBinding(),
     ),
   ];
 }
