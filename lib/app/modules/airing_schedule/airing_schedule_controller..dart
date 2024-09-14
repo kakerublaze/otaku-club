@@ -14,7 +14,7 @@ class AiringScheduleController extends GetxController {
     'Saturday',
     'Sunday'
   ];
-
+  var selectedTabIndex = 0.obs;
   Map<String, List<AiringScheduleAnimeData>> groupByWeekday(
       List<AiringScheduleAnimeData> schedules) {
     Map<String, List<AiringScheduleAnimeData>> weeklySchedule = {
@@ -26,8 +26,6 @@ class AiringScheduleController extends GetxController {
       'Saturday': [],
       'Sunday': [],
     };
-
-   
 
     for (AiringScheduleAnimeData schedule in schedules) {
       String weekday = DateFormat('EEEE').format(

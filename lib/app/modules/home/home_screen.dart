@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:otakuclub/app/core/utils/extensions.dart';
 import 'package:otakuclub/app/core/utils/helpers/image_helper.dart';
 import 'package:otakuclub/app/global_widgets/header_title_widget.dart';
@@ -245,20 +246,20 @@ class HomeScreen extends GetView<HomeScreenController> {
                                       .airingScheduleAnimeList[index]
                                       .airingAt ??
                                   DateTime.now();
-                              final futureDateTime = airingAt;
+                              // final futureDateTime = airingAt;
                               // DateTime.fromMillisecondsSinceEpoch(
                               //     airingAt * 1000);
-                              final now = DateTime.now();
-                              final difference = futureDateTime.difference(now);
+                              // final now = DateTime.now();
+                              // final difference = futureDateTime.difference(now);
 
-                              String displayText;
-                              if (difference.inDays > 0) {
-                                displayText =
-                                    'Airing in ${difference.inDays} Days';
-                              } else {
-                                displayText =
-                                    'Airing in ${difference.inHours} Hours';
-                              }
+                              // String displayText;
+                              // if (difference.inDays > 0) {
+                              //   displayText =
+                              //       'Airing in ${difference.inDays} Days';
+                              // } else {
+                              //   displayText =
+                              //       'Airing in ${difference.inHours} Hours';
+                              // }
                               return Container(
                                 width: Get.width * 0.75,
                                 decoration: BoxDecoration(
@@ -337,7 +338,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                                           ),
                                           5.heightBox,
                                           Text(
-                                            displayText,
+                                            DateFormat('dd-MM-yyyy [hh:MM a]')
+                                                .format(airingAt)
+                                                .toString(),
                                             style: const TextStyle(
                                               color: AppColor.white70,
                                               fontSize: 12,
